@@ -42,6 +42,25 @@ Describe the data used and general methodological approach used to address the p
 
 For this secondary analysis, I'm using data from PRAMS, Phase 8, a surveillance system that collects state-specific data on maternal behaviors, experiences, and health outcomes before, during, and after pregnancy. The exposure for this study is folic acid supplementation (categorized as Yes/No) and the outcome is infant birth weight, which has been grouped into 250-gram intervals.
 
+```{r}
+# Install haven if you don't have it already
+install.packages("haven")
+
+# Load the haven package
+library(haven)
+
+# Read a .sas7bdat file
+data <- read_sas("/Users/molabisi/Downloads/PRAMS ARF/phase8_arf_2016_2022.sas7bdat")
+
+# View the first few rows of the data
+head(data)
+
+```
+
+```{r}
+# Create a table 1
+```
+
 ## Results {#sec-results}
 
 Describe your results and include relevant tables, plots, and code/comments used to obtain them. You may refer to the @sec-methods as needed. End with a brief conclusion of your findings related to the question you set out to address. You can include references if you'd like, but this is not required.
