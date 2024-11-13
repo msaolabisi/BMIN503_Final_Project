@@ -1,7 +1,7 @@
 ---
-title: "Your Title"
+title: "Investigating the Association Between Maternal Folic Acid Supplementation During Pregnancy and the Risk of Low Birth Weight"
 subtitle: "BMIN503/EPID600 Final Project"
-author: "FirstName LastName"
+author: "Michaela Olabisi"
 format: html
 editor: visual
 number-sections: true
@@ -16,15 +16,31 @@ Use this template to complete your project throughout the course. Your Final Pro
 
 Give a brief a description of your project and its goal(s), what data you are using to complete it, and what two faculty/staff in different fields you have spoken to about your project with a brief summary of what you learned from each person. Include a link to your final project GitHub repository.
 
+This project explores the relationship between maternal folic acid supplementation during pregnancy and the risk of delivering a low birth weight (LBW) infant, defined as a birth weight below 2,500 grams.^1^ Using data from the Pregnancy Risk Assessment Monitoring System (PRAMS), I aim to assess whether folic acid intake during pregnancy can help lower the likelihood of LBW. I consulted with Dr. John Holmes and Dr. Ellen Caniglia from the Department of Biostatistics, Epidemiology & Informatics. Dr. Holmes highlighted potential study limitations, such as selection bias, while Dr. Caniglia shared a relevant [paper](https://pubmed.ncbi.nlm.nih.gov/35561720/) that examines the link between supplementation and adverse pregnancy outcomes like preterm birth (PTB) and LBW. You can access the final project, including all code and results, on my GitHub: <https://github.com/msaolabisi/BMIN503_Final_Project.git>
+
 ## Introduction {#sec-introduction}
 
 Describe the problem addressed, its significance, and some background to motivate the problem. This should extend what is in the @sec-overview.
 
 Explain why your problem is interdisciplinary, what fields can contribute to its understanding, and incorporate background related to what you learned from meeting with faculty/staff.
 
+The problem I'm addressing in this project is the potential link between maternal folic acid supplementation during pregnancy and the risk of delivering LBW infant, defined as a birth weight under 2,500 grams. LBW is an important indicator of adverse pregnancy outcomes, including higher rates of neonatal morbidity, mortality, and long-term developmental issues like cardiovascular and metabolic disorders.^2^ These conditions put a lot of stress on healthcare systems, driving up costs and the need for more intensive care, including extended stays in the NICU (Neonatal Intensive Care Unit).^3^ It's important to identify maternal factors that can be changed to lower the risk of LBW, as this could help improve the health of both mothers and babies.
+
+Folic acid is a B vitamin that’s often recommended during pregnancy to help prevent birth defects like spina bifida.^4^ It helps with DNA production, cell growth, and tissue development, which are all crucial for the rapid development of the fetus.^5^ Folic acid may also support the placenta, which provides the fetus with nutrients and oxygen, and a healthy placenta can help prevent LBW.^5^ By reducing these issues, folic acid might help lower the chances of having an LBW baby.
+
+Despite these potential benefits, the direct relationship between folic acid and LBW isn’t fully established, and the research results are inconsistent. This is why it’s important to further investigate how folic acid supplementation during pregnancy might affect LBW.
+
+This issue spans multiple fields. Epidemiology helps us understand the patterns and causes of LBW, while biostatistics is used to analyze large datasets like PRAMS. Public health looks at how factors like folic acid impact maternal and fetal health at the population level. Nutrition explains the role of folic acid in fetal development, and obstetrics and maternal health offer insights into how maternal health, prenatal care, and pregnancy complications influence birth weight outcomes.
+
+When I spoke with Dr. John Holmes and Dr. Ellen Caniglia from the Department of Biostatistics, Epidemiology & Informatics, they helped me better understand the challenges of studying this issue. Dr. Holmes stressed the importance of addressing biases, like selection bias, when interpreting data in this case and Dr. Caniglia shared her research on supplementation and pregnancy outcomes, providing valuable context for studying the link between folic acid and LBW.
+
+By drawing from these different fields of expertise, this project seeks to clarify the potential role of folic acid supplementation in reducing LBW.
+
 ## Methods {#sec-methods}
 
 Describe the data used and general methodological approach used to address the problem described in the @sec-introduction. Subsequently, incorporate full R code necessary to retrieve and clean data, and perform analysis. Be sure to include a description of code so that others (including your future self) can understand what you are doing and why.
+
+For this secondary analysis, I'm using data from PRAMS, Phase 8, a surveillance system that collects state-specific data on maternal behaviors, experiences, and health outcomes before, during, and after pregnancy. The exposure for this study is folic acid supplementation (categorized as Yes/No) and the outcome is infant birth weight, which has been grouped into 250-gram intervals.
 
 ## Results {#sec-results}
 
@@ -33,3 +49,13 @@ Describe your results and include relevant tables, plots, and code/comments used
 ## Conclusion
 
 This the conclusion. The @sec-results can be invoked here.
+
+1.  Organization WH. International statistical classification of diseases and related health problems, tenth revision, 2nd ed. World Health Organization; 2004.
+
+2.  Jańczewska, I., Wierzba, J., Jańczewska, A., Szczurek-Gierczak, M., & Domżalska-Popadiuk, I. (2023). Prematurity and Low Birth Weight and Their Impact on Childhood Growth Patterns and the Risk of Long-Term Cardiovascular Sequelae. *Children*, *10*(10), Article 10. <https://doi.org/10.3390/children10101599>
+
+3.  Fu, M., Song, W., Yu, G., Yu, Y., & Yang, Q. (2023). Risk factors for length of NICU stay of newborns: A systematic review. *Frontiers in Pediatrics*, *11*, 1121406. <https://doi.org/10.3389/fped.2023.1121406>
+
+4.  Houk, V. N., Oakley, G. P., Erickson, J. D., Mulinare, J., & James, L. M. (n.d.). *Recommendations for the use of folic acid to reduce the number of cases of spina bifida and other neural tube defects*. Retrieved November 12, 2024, from <https://stacks.cdc.gov/view/cdc/7079>
+
+5.  Scholl, T. O., & Johnson, W. G. (2000). Folic acid: Influence on the outcome of pregnancy1234. *The American Journal of Clinical Nutrition*, *71*(5), 1295S-1303S. <https://doi.org/10.1093/ajcn/71.5.1295s>
