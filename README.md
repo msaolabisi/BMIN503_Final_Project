@@ -17,3 +17,13 @@ DUE DATE FOR FINAL VERSION: 12/13/24 11:59PM. This is a hard deadline. Turn in w
 <!-- Links -->
 [forking]: https://guides.github.com/activities/forking/
 
+# BMIN503 Final Project
+
+## Overview
+This project explores the relationship between maternal folic acid supplementation during pregnancy and the risk of delivering a low birth weight (LBW) infant. Data from the Pregnancy Risk Assessment Monitoring System (PRAMS) is used to assess whether folic acid intake during pregnancy lowers the likelihood of LBW.
+
+## Files
+- `final_project_template.qmd`: The main document where the project overview, methods, and analysis are discussed.
+
+## GitHub Repository
+You can access the full project, including code and results, on my GitHub: [BMIN503_Final_Project](https://github.com/msaolabisi/BMIN503_Final_Project)
