@@ -10,25 +10,17 @@ embed-resources: true
 
 ------------------------------------------------------------------------
 
-Use this template to complete your project throughout the course. Your Final Project presentation will be based on the contents of this document. Replace the title/name above and text below with your own, but keep the headers. Feel free to change the theme and other display settings, although this is not required. I added a new sentence
-
 ## Overview {#sec-overview}
 
-Give a brief a description of your project and its goal(s), what data you are using to complete it, and what two faculty/staff in different fields you have spoken to about your project with a brief summary of what you learned from each person. Include a link to your final project GitHub repository.
-
-This project explores the relationship between maternal folic acid supplementation during pregnancy and the risk of delivering a low birth weight (LBW) infant, defined as a birth weight below 2,500 grams.^1^ Using data from the Pregnancy Risk Assessment Monitoring System (PRAMS), I aim to assess whether folic acid intake during pregnancy can help lower the likelihood of LBW. I consulted with Dr. John Holmes and Dr. Ellen Caniglia from the Department of Biostatistics, Epidemiology & Informatics. Dr. Holmes highlighted potential study limitations, such as selection bias, while Dr. Caniglia shared a relevant [paper](https://pubmed.ncbi.nlm.nih.gov/35561720/) that examines the link between supplementation and adverse pregnancy outcomes like preterm birth (PTB) and LBW. You can access the final project, including all code and results, on my GitHub: <https://github.com/msaolabisi/BMIN503_Final_Project.git>
+This study examines the link between maternal folic acid supplementation before and during pregnancy and the risk of delivering a low birth weight (LBW) infant, defined as a birth weight below 2,500 grams.^1^ LBW is associated with higher neonatal morbidity and long-term health issues. Folic acid, vital for fetal development, may help prevent LBW by supporting placental health. Using data from the Pregnancy Risk Assessment Monitoring System (PRAMS), the study finds that folic acid supplementation during pregnancy appears to reduce LBW risk, while pre-pregnancy intake may slightly increase it. Socioeconomic factors, such as education and income, as well as race and prenatal care, also play significant roles in LBW outcomes. The study highlights the need for targeted interventions addressing these factors to reduce LBW rates. I consulted with Dr. John Holmes and Dr. Ellen Caniglia from the Department of Biostatistics, Epidemiology & Informatics. Dr. Holmes highlighted potential study limitations, such as selection bias, while Dr. Caniglia shared a relevant [paper](https://pubmed.ncbi.nlm.nih.gov/35561720/) that examines the link between supplementation and adverse pregnancy outcomes like preterm birth (PTB) and LBW. You can access the final project, including all code and results, on my GitHub: <https://github.com/msaolabisi/BMIN503_Final_Project.git>
 
 ## Introduction {#sec-introduction}
 
-Describe the problem addressed, its significance, and some background to motivate the problem. This should extend what is in the @sec-overview.
-
-Explain why your problem is interdisciplinary, what fields can contribute to its understanding, and incorporate background related to what you learned from meeting with faculty/staff.
-
-The problem I'm addressing in this project is the potential link between maternal folic acid supplementation during pregnancy and the risk of delivering LBW infant, defined as a birth weight under 2,500 grams. LBW is an important indicator of adverse pregnancy outcomes, including higher rates of neonatal morbidity, mortality, and long-term developmental issues like cardiovascular and metabolic disorders.^2^ These conditions put a lot of stress on healthcare systems, driving up costs and the need for more intensive care, including extended stays in the NICU (Neonatal Intensive Care Unit).^3^ It's important to identify maternal factors that can be changed to lower the risk of LBW, as this could help improve the health of both mothers and babies.
+The problem I'm addressing in this project is the potential link between maternal folic acid supplementation before and during pregnancy and the risk of delivering a LBW infant, defined as a birth weight under 2,500 grams. LBW is an important indicator of adverse pregnancy outcomes, including higher rates of neonatal morbidity, mortality, and long-term developmental issues like cardiovascular and metabolic disorders.^2^ These conditions put a lot of stress on healthcare systems, driving up costs and the need for more intensive care, including extended stays in the NICU (Neonatal Intensive Care Unit).^3^ It's important to identify maternal factors that can be changed to lower the risk of LBW, as this could help improve the health of both mothers and babies.
 
 Folic acid is a B vitamin that’s often recommended during pregnancy to help prevent birth defects like spina bifida.^4^ It helps with DNA production, cell growth, and tissue development, which are all crucial for the rapid development of the fetus.^5^ Folic acid may also support the placenta, which provides the fetus with nutrients and oxygen, and a healthy placenta can help prevent LBW.^5^ By reducing these issues, folic acid might help lower the chances of having an LBW baby.
 
-Despite these potential benefits, the direct relationship between folic acid and LBW isn’t fully established, and the research results are inconsistent. This is why it’s important to further investigate how folic acid supplementation during pregnancy might affect LBW.
+Despite these potential benefits, the direct relationship between folic acid and LBW isn’t fully established, and the research results are inconsistent. This is why it’s important to further investigate how folic acid supplementation before and during pregnancy might affect LBW.
 
 This issue spans multiple fields. Epidemiology helps us understand the patterns and causes of LBW, while biostatistics is used to analyze large datasets like PRAMS. Public health looks at how factors like folic acid impact maternal and fetal health at the population level. Nutrition explains the role of folic acid in fetal development, and obstetrics and maternal health offer insights into how maternal health, prenatal care, and pregnancy complications influence birth weight outcomes.
 
@@ -38,269 +30,71 @@ By drawing from these different fields of expertise, this project seeks to clari
 
 ## Methods {#sec-methods}
 
-Describe the data used and general methodological approach used to address the problem described in the @sec-introduction. Subsequently, incorporate full R code necessary to retrieve and clean data, and perform analysis. Be sure to include a description of code so that others (including your future self) can understand what you are doing and why.
+This study is a secondary analysis of data collected from the Phase 8 (2016–2022) Pregnancy Risk Assessment Monitoring System (PRAMS), a cross-sectional study conducted by the Centers for Disease Control and Prevention (CDC) in collaboration with state health departments. The dataset included responses from 249,970 women across all U.S. states who gave birth within the study period.
 
-For this secondary analysis, I'm using data from PRAMS, Phase 8, a surveillance system that collects state-specific data on maternal behaviors, experiences, and health outcomes before, during, and after pregnancy. The exposure for this study is folic acid supplementation (categorized as Yes/No) and the outcome is infant birth weight, which has been grouped into 250-gram intervals.
+The PRAMS survey included a core set of questions and optional standard questions tailored to state-specific needs. For this study, the primary exposure variables were folic acid supplementation before and during pregnancy, both categorized as "Yes" or "No." The primary outcome was infant birth weight, categorized as "Yes Low Birth Weight" or "No Low Birth Weight" Covariates included maternal age, race/ethnicity, education, smoking during pregnancy, pre-pregnancy BMI, prenatal care utilization, state, and income.
 
-### **Exposure**
+Descriptive statistics were used to summarize maternal and infant characteristics, stratified by LBW status, and analyzed using t-tests for continuous variables and chi-square tests for categorical variables. Univariate and multivariate logistic regression models were employed to estimate unadjusted and adjusted odds ratios (aORs) for the relationship between folic acid intake (before and during pregnancy) and LBW, adjusting for covariates. Additional tables and figures included 2x2 tables to assess the relationship between exposures and outcome, bar plots displaying the relationship between exposures, covariates, and LBW, and a dot plot showing LBW counts across states. A forest plot was also generated to display both adjusted and unadjusted odds ratios (ORs) for the association between folic acid intake (before and during pregnancy) and LBW.
 
-+-------------+------------------------+------------+-------------+
-| PRE_VIT_RAW | Pre-preg -- folic acid | NYS1F      | .B=DK/BLANK |
-|             |                        |            |             |
-|             |                        |            | .S=SKIP     |
-|             |                        |            |             |
-|             |                        |            | 1=NO        |
-|             |                        |            |             |
-|             |                        |            | 2=YES       |
-+-------------+------------------------+------------+-------------+
-
-+-------------+-------------------+------------+-------------+
-| VPP_VIT_RAW | PPV -- folic acid | NYS1F      | .B=DK/BLANK |
-|             |                   |            |             |
-|             |                   |            | .S=SKIP     |
-|             |                   |            |             |
-|             |                   |            | 1=NO        |
-|             |                   |            |             |
-|             |                   |            | 2=YES       |
-+-------------+-------------------+------------+-------------+
-
-### **Outcome**
-
-+--------------+----------------------------------------------+-----------+----------------+
-| GRAM_NAPHSIS | Birth weight grouped into 250-gram intervals | NP_GRAM   | .U=UNKNOWN     |
-|              |                                              |           |                |
-|              |                                              |           | 125=0227-0249  |
-|              |                                              |           |                |
-|              |                                              |           | 375=0250-0499  |
-|              |                                              |           |                |
-|              |                                              |           | 625=0500-0749  |
-|              |                                              |           |                |
-|              |                                              |           | 875=0750-0999  |
-|              |                                              |           |                |
-|              |                                              |           | 1125=1000-1249 |
-|              |                                              |           |                |
-|              |                                              |           | 1375=1250-1499 |
-|              |                                              |           |                |
-|              |                                              |           | 1625=1500-1749 |
-|              |                                              |           |                |
-|              |                                              |           | 1875=1750-1999 |
-|              |                                              |           |                |
-|              |                                              |           | 2125=2000-2249 |
-|              |                                              |           |                |
-|              |                                              |           | 2375=2250-2499 |
-|              |                                              |           |                |
-|              |                                              |           | 2625=2500-2749 |
-|              |                                              |           |                |
-|              |                                              |           | 2875=2750-2999 |
-|              |                                              |           |                |
-|              |                                              |           | 3125=3000-3249 |
-|              |                                              |           |                |
-|              |                                              |           | 3375=3250-3499 |
-|              |                                              |           |                |
-|              |                                              |           | 3625=3500-3749 |
-|              |                                              |           |                |
-|              |                                              |           | 3875=3750-3999 |
-|              |                                              |           |                |
-|              |                                              |           | 4125=4000-4249 |
-|              |                                              |           |                |
-|              |                                              |           | 4375=4250-4499 |
-|              |                                              |           |                |
-|              |                                              |           | 4625=4500-4749 |
-|              |                                              |           |                |
-|              |                                              |           | 4875=4750-4999 |
-|              |                                              |           |                |
-|              |                                              |           | 5125=5000-5249 |
-|              |                                              |           |                |
-|              |                                              |           | 5375=5250-5499 |
-|              |                                              |           |                |
-|              |                                              |           | 5625=5500-5749 |
-|              |                                              |           |                |
-|              |                                              |           | 5875=5750-5999 |
-|              |                                              |           |                |
-|              |                                              |           | 6125=6000-6249 |
-|              |                                              |           |                |
-|              |                                              |           | 6375=6250-6499 |
-|              |                                              |           |                |
-|              |                                              |           | 6625=6500-6749 |
-|              |                                              |           |                |
-|              |                                              |           | 6875=6750-6999 |
-|              |                                              |           |                |
-|              |                                              |           | 7125=7000-7249 |
-|              |                                              |           |                |
-|              |                                              |           | 7375=7250-7499 |
-|              |                                              |           |                |
-|              |                                              |           | 7625=7500-7749 |
-|              |                                              |           |                |
-|              |                                              |           | 7875=7750-7999 |
-|              |                                              |           |                |
-|              |                                              |           | 8125=8000-8165 |
-+==============+==============================================+===========+================+
-|              |                                              |           |                |
-+--------------+----------------------------------------------+-----------+----------------+
-
-### **Covariates**
-
-### **Maternal Factors**
-
--   **Age** (categorized into age groups: .U=Unknown 17=17 or younger 45=45 or older) **MAT_AGE_PU**
-
--   **Parity** (categorized as: .U=UNKNOWN 0=0 1=1 2=2 3=3-5 4=6+) **PRE_LB_NAPHSIS**
-
--   **BMI (kg/m²)** (categorized using WHO classification): B=DK / BLANK, 1=UNDERWT (   \< 18.5), 2=NORMAL  (18.5-24.9), 3=OVERWT  (25.0-29.9), 4=OBESE   (30.0 +   ) **MOM_BMIG_QX_REV**
-
-### **2. Socioeconomic Determinants**
-
--   **Education** (categorized as: .U=UNKNOWN 1=\<= 8TH GRADE 2=9-12 GRADE, NO DIPLOMA 3=HIGH SCHOOL GRAD / GED 4=SOME COLLEGE, NO DEG / ASSOCIATE DEG 5=BACHELORS / MASTERS / DOCTORATE / PROF) **MAT_ED**
-
--   **Place of residence** (STATE NAME) **STATE**
-
--   Income (Income -- 12 mnths bef, total income **INCOME8**
-
-    .B=DK/BLANK
-
-    1=\$ 0 TO \$16,000
-
-    2=\$16,001 TO \$20,000
-
-    3=\$20,001 TO \$24,000
-
-    4=\$24,001 TO \$28,000
-
-    5=\$28,001 TO \$32,000
-
-    6=\$32,001 TO \$40,000
-
-    7=\$40,001 TO \$48,000
-
-    8=\$48,001 TO \$57,000
-
-    9=\$57,001 TO \$60,000
-
-    10=\$60,001 TO \$73,000
-
-    11=\$73,001 TO \$85,000
-
-    12=\$85,001 OR MORE
-
-    13=\$ 0 TO \$10,000
-
-    14=\$10,001 TO \$16,000
-
-    15=\$85,001 TO \$99,999
-
-    16=\$100,000 OR MORE
-
-    17=\$85,001 TO \$99,000
-
-    18=\$99,001 TO \$109,000
-
-    19=\$109,001 OR MORE
-
-    20=\$ 85,001 TO \$100,000
-
-    21=\$100,001 TO \$120,000
-
-    22=\$120,001 OR MORE
-
-    101=\$ 0 TO \$ 20,000
-
-    102=\$20,001 TO \$ 25,000
-
-    103=\$ 25,001 TO \$ 30,000
-
-    104=\$ 30,001 TO \$ 36,000
-
-    105=\$ 36,001 TO \$ 40,000
-
-    106=\$ 40,001 TO \$ 50,000
-
-    107=\$ 50,001 TO \$ 60,000
-
-    108=\$ 60,001 TO \$ 71,000
-
-    109=\$ 71,001 TO \$ 75,000
-
-    110=\$ 75,001 TO \$ 91,000
-
-    111=\$ 91,001 TO \$107,000
-
-    112=\$107,001 OR MORE
-
-    201=\$ 0 TO \$ 18,000
-
-    202=\$18,001 TO \$ 23,000
-
-    203=\$23,001 TO \$ 28,000
-
-    204=\$28,001 TO \$ 33,000
-
-    205=\$33,001 TO \$ 37,000
-
-    206=\$37,001 TO \$ 46,000
-
-    207=\$46,001 TO \$ 55,000
-
-    208=\$55,001 TO \$ 65,000
-
-    209=\$65,001 TO \$ 69,000
-
-    210=\$69,001 TO \$ 84,000
-
-    211=\$84,001 TO \$ 98,000
-
-    212=\$98,001 OR MORE) INCOME8F
-
-### **3. Utilization of Antenatal Care (ANC)**
-
--   **PNC_VST** Number of prenatal care visit
-
-### 
+## Install, Read, & Load Packages {#sec-install-read-&-load-packages}
 
 ```{r}
-# Install haven if you don't have it already
+options(repos = c(CRAN = "https://cloud.r-project.org")) 
+
+##install packages
 install.packages("haven")
+install.packages("tableone")
+install.packages("viridis")
+install.packages("sf")
+install.packages("maps")
+install.packages("gt")
 
-# Load the haven package
+##load packages
+library(gt)
 library(haven)
-
-# Read a .sas7bdat file
-data <- read_sas("/Users/molabisi/Downloads/PRAMS ARF/phase8_arf_2016_2022.sas7bdat")
-
-# View the first few rows of the data
-head(data)
-
-```
-
-```{r}
-
-#clean data
-## count/how many people in data set
-cat("Total rows in the dataset:", nrow(data), "\n")
-
-##load libraries
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(caret)
 library(boot)
-install.packages("tableone")
 library(tableone)
+library(broom)
+library(viridis)
+library(sf)
+library(maps)
+```
 
-## make exposure variables more concise
+```{r}
+
+# read a .sas7bdat file
+data <- read_sas("/Users/molabisi/Downloads/PRAMS ARF/phase8_arf_2016_2022.sas7bdat")
+
+# view the first few rows of the data
+head(data)
+
+```
+
+## Cleaning Data {#sec-cleaning-data}
+
+```{r}
+## count/how many people in data set
+cat("Total rows in the dataset:", nrow(data), "\n")
+
+##cleaning data
 data_clean <- data %>%
+##recoding exposure variables
   mutate(
-    # For PRE_VIT_RAW (Pre-preg -- folic acid)
+     # For PRE_VIT_RAW (pre preg -- PPV -- folic acid)
     PRE_VIT_RAW = case_when(
       PRE_VIT_RAW == 1 ~ 0,   # NO -> 0
       PRE_VIT_RAW == 2 ~ 1,   # YES -> 1
-      TRUE ~ PRE_VIT_RAW # Keep other values unchanged
+      TRUE ~ NA_real_ # Keep other values unchanged
     ),
-    
-    # For VPP_VIT_RAW (PPV -- folic acid)
+    # For VPP_VIT_RAW (during preg -- PPV -- folic acid)
     VPP_VIT_RAW = case_when(
       VPP_VIT_RAW == 1 ~ 0,   # NO -> 0
       VPP_VIT_RAW == 2 ~ 1,   # YES -> 1
-      TRUE ~ VPP_VIT_RAW # Keep other values unchanged
+      TRUE ~ NA_real_ # Keep other values unchanged
     ),
     
     # Convert to factors after recoding
@@ -308,30 +102,39 @@ data_clean <- data %>%
     VPP_VIT_RAW = factor(VPP_VIT_RAW, levels = c(0, 1))
   )
 
-library(dplyr)
-## make outcome variables more concise
+## recoding outcome variables 4 categories
 data_clean <- data_clean %>%
   mutate(
-    # Simplify birth weight categories into broader groups
-    GRAM_NAPHSIS = case_when(
-      GRAM_NAPHSIS %in% c(125, 375, 625, 875, 1125, 1375) ~ 0,   # Less than 1500 grams VLBW
-      GRAM_NAPHSIS %in% c(1625, 1875, 2125, 2375) ~ 1,  # Less than 2500 grams LBW
-      GRAM_NAPHSIS %in% c(2625, 2875, 3125, 3375, 3625, 3875) ~ 2, # Between 2500 and 4000 grams (NBW)
-      GRAM_NAPHSIS >= 4125 ~ 3, # Over 4000 grams (MACROSOMIA)
-      TRUE ~ NA_real_  # Missing or unknown values will remain NA
-    ),
-    GRAM_NAPHSIS = factor(GRAM_NAPHSIS, levels = c(0, 1, 2, 3))
-  )
+  GRAM_NAPHSIS = case_when(
+    GRAM_NAPHSIS < 1500 ~ 0,       # VLBW: Less than 1500 grams
+    GRAM_NAPHSIS >= 1500 & GRAM_NAPHSIS < 2500 ~ 1, # LBW: 1500-2499 grams
+    GRAM_NAPHSIS >= 2500 & GRAM_NAPHSIS <= 4000 ~ 2, # NBW: 2500-4000 grams
+    GRAM_NAPHSIS > 4000 ~ 3,       # Macrosomia: Over 4000 grams
+    TRUE ~ NA_real_                # Missing or invalid data
+  ),
+  GRAM_NAPHSIS = factor(GRAM_NAPHSIS, levels = c(0, 1, 2, 3)),
 
-##make covariates more concise
+## recoding outcome variable dichotomous
+ LBW = case_when(
+      GRAM_NAPHSIS == 0 | GRAM_NAPHSIS == 1 ~ 1,  # VLBW or LBW
+      GRAM_NAPHSIS == 2 | GRAM_NAPHSIS == 3 ~ 0,   # NBW or Macrosomia
+      TRUE ~ NA_real_ # Missing or invalid data
+    ),
+LBW = factor(LBW, levels = c(0, 1)),
+  )
+table(data_clean$PRE_VIT_RAW)
+table(data_clean$VPP_VIT_RAW)
+table(data_clean$GRAM_NAPHSIS)
+table(data_clean$LBW)
+```
+
+```{r}
+## cleaning data
 data_clean <- data_clean %>%
+##cleaning covariates
   mutate(
     # Maternal Age
-    MAT_AGE_PU = case_when(
-      MAT_AGE_PU == 17 ~ 0,      # Age 17 or younger
-      MAT_AGE_PU == 45 ~ 1,      # Age 45 or older
-      TRUE ~ NA_real_          # Other ages remain unchanged
-    ),
+    MAT_AGE_PU = as.numeric(MAT_AGE_PU),
     
     # Parity
     PRE_LB_NAPHSIS = case_when(
@@ -340,199 +143,647 @@ data_clean <- data_clean %>%
       PRE_LB_NAPHSIS %in% c(2, 3, 4) ~ 2, # 2+ children (Yes, multiple)
       TRUE ~ NA_real_
     ),
+    PRE_LB_NAPHSIS = as.factor(PRE_LB_NAPHSIS),
     
-    # BMI (e.g., categorized into underweight, normal, overweight, obese)
-    MOM_BMIG_QX_REV = case_when(
-      MOM_BMIG_QX_REV == 1 ~ 0, #"Underweight (<18.5)",
-      MOM_BMIG_QX_REV == 2 ~ 1, #"Normal weight (18.5-24.9)",
-      MOM_BMIG_QX_REV == 3 ~ 2, #"Overweight (25.0-29.9)",
-      MOM_BMIG_QX_REV == 4 ~ 3, #"Obese (30+)",
-      TRUE ~ NA_real_
-    ),
+    # BMI 
+    MOM_BMI = as.numeric(MOM_BMI),
     
-   # Education: Convert to simpler categories
+   # Education
     MAT_ED = case_when(
-      MAT_ED == 1 ~ 0,  # <= 8th grade
-      MAT_ED == 2 ~ 1,  # 9-12th grade, no diploma
-      MAT_ED == 3 ~ 2,  # High school graduate / GED
-      MAT_ED == 4 ~ 3,  # Some college, no degree
-      MAT_ED == 5 ~ 4,  # Bachelor's, Master's, or higher
-      TRUE ~ NA_real_
+      MAT_ED %in% c(1, 2) ~ "<= 12th grade, no diploma", 
+      MAT_ED == 3 ~ "High school graduate / GED",  
+      MAT_ED == 4 ~ "Some college, no degree",  
+      MAT_ED == 5 ~ "Bachelor's, Master's, or higher",  
+      TRUE ~ NA_character_
     ),
+    MAT_ED = as.factor(MAT_ED),
+   
+    # Income
+  INCOME8 = case_when(
+  INCOME8 %in% c(1, 2, 3, 4, 5, 6, 13, 14, 101, 102, 103, 104, 105) ~ "Low income (0 - $40,000)",  
+  INCOME8 %in% c(7, 8, 9, 10, 11, 106, 107, 108, 109) ~ "Middle ($40,001 - $85,000)",
+  INCOME8 %in% c(12, 15, 16, 17, 18, 19, 20, 21, 22, 110, 111, 112) ~ "High income ($85,001 or more)",  
+  TRUE ~ NA_character_
+),
+  INCOME8 = as.factor(INCOME8),
 
-    # Income: Group income into broader categories
-    INCOME8 = case_when(
-      INCOME8 %in% c(1, 2, 3, 4) ~ 0,  # Low-income group (<=$32,000)
-      INCOME8 %in% c(5, 6, 7, 8) ~ 1,  # Middle-income group ($32,001-$57,000)
-      INCOME8 %in% c(9, 10, 11, 12) ~ 2,  # Upper-middle-income group ($57,001-$85,000)
-      INCOME8 >= 13 ~ 3,  # High-income group (> $85,001)
-      TRUE ~ NA_real_
-    )
+  STATE = as.factor(STATE), 
 
-  ) %>%
-  mutate(
-    # Convert categorical variables to factors after recoding
-    MAT_AGE_PU = factor(MAT_AGE_PU, levels = c(0, 1)),
-    PRE_LB_NAPHSIS = factor(PRE_LB_NAPHSIS, levels = c(0, 1, 2)),
-    MOM_BMIG_QX_REV = factor(MOM_BMIG_QX_REV, levels = c(0, 1, 2, 3)),
-    MAT_ED = factor(MAT_ED, levels = c(0, 1, 2, 3, 4)),
-    INCOME8 = factor(INCOME8, levels = c(0, 1, 2, 3))
+  PNC_VST = as.factor(PNC_VST),
+
+  MAT_RACE_PU = case_when(
+    MAT_RACE_PU == 2 ~ "White",
+    MAT_RACE_PU == 3 ~ "Black",
+    MAT_RACE_PU == 4 ~ "American Indian",
+    MAT_RACE_PU == 10 ~ "Alaska Native",
+    MAT_RACE_PU == 21 ~ "Asian",
+    MAT_RACE_PU == 22 ~ "Hawaiian/Other Pacific Islander",
+    MAT_RACE_PU == 23 ~ "Other/Multiple Race",
+    TRUE ~ NA_character_
+  ),
+  MAT_RACE_PU = as.factor(MAT_RACE_PU)
   )
-
-library(dplyr)
-
-# Creating a new category for regions
-data_clean <- data_clean %>%
-  mutate(STATE = case_when(
-    STATE %in% c("NY", "NJ", "MA", "PA", "RI", "CT", "VT", "NH", "ME", "YC") ~ 0, #"Northeast",
-    STATE %in% c("IL", "IN", "OH", "MI", "WI", "MN", "IA", "MO", "KS", "NE", "SD", "ND") ~ 1, # "Midwest",
-    STATE %in% c("DE", "MD", "VA", "KY", "TN", "NC", "SC", "GA", "FL", "AL", "MS", "LA", "AR", "OK", "TX", "WV") ~ 2, #"South",
-    STATE %in% c("WA", "OR", "CA", "CO", "AZ", "NM", "UT", "NV", "MT", "WY", "ID", "AK", "HI") ~ 3, #"West",
-    STATE == c("DC", "PR") ~ 4, #"Other",  # District of Columbia # Puerto Rico
-    TRUE ~ NA_real_ 
-  )) %>%
-  mutate(STATE = factor(STATE, levels = c(0, 1, 2, 3, 4)))
-
-data_clean <- data_clean %>%
-  mutate(PNC_VST = case_when(
-    PNC_VST == 0 ~ 0, # No visits
-    PNC_VST >= 1 & PNC_VST <= 5 ~ 1, # 1-5 visits
-    PNC_VST >= 6 & PNC_VST <= 10 ~ 2, # 6-10 visits
-    PNC_VST >= 11 & PNC_VST <= 15 ~ 3, # 11-15 visits
-    PNC_VST >= 16 & PNC_VST <= 20 ~ 4, # 16-20 visits
-    PNC_VST >= 21 & PNC_VST <= 30 ~ 5, # 21-30 visits
-    PNC_VST >= 31 & PNC_VST <= 40 ~ 6, # 31-40 visits
-    PNC_VST > 40 ~ 7, # More than 40 visits
-    TRUE ~ NA_real_ # Catch any unexpected values (use NA_real_ for numeric)
-  )) %>%
-  mutate(PNC_VST = factor(PNC_VST, 
-                          levels = c(0, 1, 2, 3, 4, 5, 6, 7)))
-
 
 table(data_clean$PRE_VIT_RAW)
 table(data_clean$VPP_VIT_RAW)
 table(data_clean$GRAM_NAPHSIS)
 table(data_clean$MAT_AGE_PU)
 table(data_clean$PRE_LB_NAPHSIS)
-table(data_clean$MOM_BMIG_QX_REV)
+table(data_clean$MOM_BMI)
 table(data_clean$MAT_ED)
 table(data_clean$STATE)
 table(data_clean$INCOME8)
 table(data_clean$PNC_VST)
-```
-
-```{r}
-# variables I want in the descriptive table
-variables <- c("PRE_VIT_RAW", "VPP_VIT_RAW", "GRAM_NAPHSIS", "MAT_AGE_PU", "PRE_LB_NAPHSIS", 
-               "MOM_BMIG_QX_REV", "MAT_ED", "STATE", "INCOME8", "PNC_VST")
-
-# Create the descriptive table
-table <- CreateTableOne(vars = variables, data = data_clean, factorVars = c("PRE_VIT_RAW", "VPP_VIT_RAW", "GRAM_NAPHSIS", 
-                                                                           "MAT_AGE_PU", "PRE_LB_NAPHSIS", "MOM_BMIG_QX_REV", 
-                                                                           "MAT_ED", "STATE", "INCOME8", "PNC_VST"))
-
-# Print the table
-print(table, showAllLevels = TRUE)
-```
-
-```{r}
-# Variables to include in the descriptive table
-variables <- c("PRE_VIT_RAW", "VPP_VIT_RAW", "GRAM_NAPHSIS", "MAT_AGE_PU", "PRE_LB_NAPHSIS", 
-               "MOM_BMIG_QX_REV", "MAT_ED", "STATE", "INCOME8", "PNC_VST")
-
-# descriptive table by the outcome variable GRAM_NAPHSIS
-table <- CreateTableOne(vars = variables, 
-                        data = data_clean, 
-                        factorVars = c("PRE_VIT_RAW", "VPP_VIT_RAW", "GRAM_NAPHSIS", 
-                                       "MAT_AGE_PU", "PRE_LB_NAPHSIS", "MOM_BMIG_QX_REV", 
-                                       "MAT_ED", "STATE", "INCOME8", "PNC_VST"),
-                        strata = "GRAM_NAPHSIS")  # Stratifying by GRAM_NAPHSIS
-
-# Print the table
-print(table, showAllLevels = TRUE)
-```
-
-```{r}
-model_logistic2 <- glm(GRAM_NAPHSIS ~ PRE_VIT_RAW, 
-                           data = data_clean, 
-                           family = binomial)
-summary(model_logistic2)
-
-model_logistic3 <- glm(GRAM_NAPHSIS ~ VPP_VIT_RAW, 
-                           data = data_clean, 
-                           family = binomial)
-summary(model_logistic3)
-
-##have to figure out why im getting this warning 
-##Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-model_logistic <- glm(GRAM_NAPHSIS ~ PRE_VIT_RAW + MAT_AGE_PU + PRE_LB_NAPHSIS + 
-                           MOM_BMIG_QX_REV + MAT_ED + STATE + INCOME8 + PNC_VST, 
-                           data = data_clean, 
-                           family = binomial)
-summary(model_logistic)
-
-model_logistic1 <- glm(GRAM_NAPHSIS ~ VPP_VIT_RAW + MAT_AGE_PU + PRE_LB_NAPHSIS + 
-                           MOM_BMIG_QX_REV + MAT_ED + STATE + INCOME8 + PNC_VST, 
-                           data = data_clean, 
-                           family = binomial)
-summary(model_logistic1)
-```
-
-######################
-```{r}
-library(nnet)
-
-# For the first multinomial model (model_multinom)
-model_multinom <- multinom(GRAM_NAPHSIS ~ PRE_VIT_RAW + + MAT_AGE_PU + PRE_LB_NAPHSIS + 
-                           MOM_BMIG_QX_REV + MAT_ED + STATE + INCOME8 + PNC_VST, 
-                           data = data_clean)
-
-# Exponentiate the coefficients to get the odds ratios (ORs)
-odds_ratios_multinom <- exp(coef(model_multinom))
-
-# Calculate 95% confidence intervals for the ORs
-confint_multinom <- exp(confint(model_multinom))
-
-# Print the odds ratios and confidence intervals
-odds_ratios_multinom
-confint_multinom
-
-# For the second multinomial model (model_multinom1)
-model_multinom1 <- multinom(GRAM_NAPHSIS ~ VPP_VIT_RAW + MAT_AGE_PU + PRE_LB_NAPHSIS + 
-                           MOM_BMIG_QX_REV + MAT_ED + STATE + INCOME8 + PNC_VST, 
-                            data = data_clean)
-
-# Exponentiate the coefficients to get the odds ratios (ORs)
-odds_ratios_multinom1 <- exp(coef(model_multinom1))
-
-# Calculate 95% confidence intervals for the ORs
-confint_multinom1 <- exp(confint(model_multinom1))
-
-# Print the odds ratios and confidence intervals
-odds_ratios_multinom1
-confint_multinom1
-
-```
-
-
-
-```{r}
-
-model_interaction <- glm(GRAM_NAPHSIS ~ PRE_VIT_RAW:PNC_VST + + MAT_AGE_PU + PRE_LB_NAPHSIS + 
-                           MOM_BMIG_QX_REV + MAT_ED + STATE + INCOME8 + PNC_VST, 
-                           data = data_clean, family = binomial())
-
-# Summarize the model results
-summary(model_interaction)
+table(data_clean$MAT_RACE_PU)
 ```
 
 ## Results {#sec-results}
 
-Describe your results and include relevant tables, plots, and code/comments used to obtain them. You may refer to the @sec-methods as needed. End with a brief conclusion of your findings related to the question you set out to address. You can include references if you'd like, but this is not required.
+## Descriptive Statistics {#sec-descriptive-statistics}
+
+```{r}
+#specifying continuous and categorical variables
+# List of continuous variables
+cont_vars <- c("MAT_AGE_PU", "MOM_BMI")
+
+# List of categorical variables
+cat_vars <- c("PRE_VIT_RAW", "VPP_VIT_RAW", "GRAM_NAPHSIS", "LBW", "PRE_LB_NAPHSIS", "MAT_ED", "STATE", "INCOME8", "PNC_VST", "MAT_RACE_PU")
+```
+
+### Descriptive Table - ALL {#sec-descriptive-statistics-ALL}
+
+```{r}
+# descriptive tables
+table1 <- CreateTableOne(vars = c(cont_vars, cat_vars), data = data_clean)
+print(table1, showAllLevels = TRUE)
+#summary(table1, showAllLevels = TRUE)
+```
+
+The sample consists mostly of low-income, white women, with about 36% reporting pre-pregnancy folic intake and about 56% reporting pregnancy folic intake. The population had an average count of prenatal care visits. The population were mostly overweight (going off of BMI which may not be accurate), were around the average age to have a baby, most were having their first baby, with about 1/5 having a low birth weight baby. Most participants have completed higher education. Massachusetts and Michigan are the most represented out of the states in the sample.
+
+### Descriptive Table - vlbw, lbw, nbw, mac {#sec-descriptive-statistics-vlbw-lbw-nbw-mac}
+
+```{r}
+#specifying continuous and categorical variables
+# List of continuous variables
+cont_vars1 <- c("MAT_AGE_PU", "MOM_BMI")
+
+# List of categorical variables
+cat_vars1 <- c("PRE_VIT_RAW", "VPP_VIT_RAW", "PRE_LB_NAPHSIS", "MAT_ED", "STATE", "INCOME8", "PNC_VST", "MAT_RACE_PU")
+```
+
+```{r}
+## cleaning data
+data_clean_filtered <- data_clean %>%
+  filter(complete.cases(select(., c(cont_vars1, cat_vars1))))
+
+# Variables to include in the descriptive table - lbw, vlbw, nbw, mac
+# Create stratified descriptive table
+table2 <- CreateTableOne(vars = c(cont_vars1, cat_vars1), strata = "GRAM_NAPHSIS", data = data_clean)
+print(table2, showAllLevels = TRUE)
+# summary(table2)
+```
+
+There is a significant difference in maternal age, BMI, pre-pregnancy folic intake, pregnancy folic intake, parity, maternal education, state, income, prenatal care visit count, and race between the different categories of birth weight (very low birth weight, low birth weight, normal birth weight, and macrasomia).
+
+### Descriptive Table - yes lbw, no lbw {#sec-descriptive-statistics-yes-lbw-no-lbw}
+
+```{r}
+
+# Variables to include in the descriptive table - lbw, not lbw
+# Create stratified descriptive table
+table3 <- CreateTableOne(vars = c(cont_vars1, cat_vars1), strata = "LBW", data = data_clean)
+print(table3, showAllLevels = TRUE)
+#summary(table3)
+```
+
+There is a significant difference in pre-pregnancy folic intake, pregnancy folic intake, parity, maternal education, state, income, prenatal care visit count, and race between low birth weight.
+
+## 2x2 Tables {#sec-2x2-table}
+
+```{r}
+# 2x2 tables
+table(data_clean$PRE_VIT_RAW, data_clean$LBW)
+
+table(data_clean$VPP_VIT_RAW, data_clean$LBW)
+
+```
+
+For Pre-pregnancy- 86960 individuals who did not have low birth weight and did not have pre-pregnancy folic intake. 23368 individuals who had low birth weight and did not have pre-pregnancy folic intake. 48759 individuals who did not have low birth weight and had pre-pregnancy folic intake. 13835 individuals who had low birth weight and had pre-pregnancy folic intake.
+
+For pregnancy- 75658 individuals who did not have low birth weight and did not have folic intake during pregnancy. 20846 individuals who had low birth weight and did not have folic intake during pregnancy. 96560 individuals who did not have low birth weight and have folic intake during pregnancy. 24515 individuals who had low birth weight and have folic intake during pregnancy.
+
+```{r}
+# For PRE_VIT_RAW vs. LBW
+chisq.test(table(data_clean$PRE_VIT_RAW, data_clean$LBW))
+
+# For VPP_VIT_RAW vs. LBW
+chisq.test(table(data_clean$VPP_VIT_RAW, data_clean$LBW))
+```
+
+Both pre-pregnancy folic intake and folic intake supplementation during pregnancy appear to be significantly associated with low birth weight. These findings suggest that maternal folic intake, either before or during pregnancy, could play an important role in birth weight outcomes.
+
+## Bar Plots {#sec-bar-plots}
+
+### Count of People with Folic Acid Intake (Pre and During Pregnancy Bar Plots)
+
+```{r}
+# Combine both Pre and During Pregnancy Folic Acid Intake Counts in One Plot
+data_clean %>%
+  gather(key = "Pregnancy_Status", value = "Folic_Acid_Intake", PRE_VIT_RAW, VPP_VIT_RAW) %>%
+  mutate(Folic_Acid_Intake = factor(Folic_Acid_Intake, levels = c(0, 1), labels = c("No", "Yes"))) %>%
+  filter(!is.na(Folic_Acid_Intake)) %>% 
+  ggplot(aes(x = Folic_Acid_Intake, fill = Folic_Acid_Intake)) +
+  geom_bar() + 
+  scale_fill_manual(values = c("blue", "red")) +
+  facet_wrap(~ Pregnancy_Status, scales = "free", labeller = labeller(Pregnancy_Status = c("PRE_VIT_RAW" = "Pre-Pregnancy", "VPP_VIT_RAW" = "During Pregnancy"))) +
+  labs(x = "Folic Acid Intake", y = "Count of People", fill = "Folic Acid Intake",
+       title = "Count of People with Folic Acid Intake (Pre and During Pregnancy)") +
+  theme_minimal() +
+  theme(legend.position = "top")
+```
+
+```{r}
+# Count people by folic acid intake status for both pre-pregnancy and during pregnancy
+data_clean %>%
+  gather(key = "Pregnancy_Status", value = "Folic_Acid_Intake", PRE_VIT_RAW, VPP_VIT_RAW) %>%
+  mutate(Folic_Acid_Intake = factor(Folic_Acid_Intake, levels = c(0, 1), labels = c("No", "Yes"))) %>%
+  filter(!is.na(Folic_Acid_Intake)) %>%
+  count(Pregnancy_Status, Folic_Acid_Intake)
+```
+
+A larger proportion of people took folic acid during pregnancy (121,177 people) compared to before pregnancy (62,669 people). Similarly, more people did not take folic acid before pregnancy (110,466 people) than during pregnancy (96,628 people).
+
+### Pre-Pregnancy Folic Acid Intake Bar Plots
+
+```{r}
+## barplot of Pre-Pregnancy Folic Acid Intake and LBW Status
+ggplot(data_clean %>% filter(!is.na(PRE_VIT_RAW), !is.na(LBW)), aes(x = PRE_VIT_RAW, fill = factor(LBW))) +
+  geom_bar(position = "fill") +  # "fill" makes the bars proportional (percentage)
+  scale_y_continuous(labels = scales::percent) +
+  scale_x_discrete(labels = c("0" = "No", "1" = "Yes")) +  # Change 0, 1 to No, Yes on x-axis
+  scale_fill_manual(values = c("0" = "blue", "1" = "red"), labels = c("0" = "No", "1" = "Yes")) +  # Change 0, 1 to No, Yes in the legend
+  labs(x = "Pre-Pregnancy Folic Acid Intake", y = "Percentage of Individuals", fill = "LBW Status",
+       title = "Pre-Pregnancy Folic Acid Intake and LBW Status") +
+  theme_minimal()
+```
+
+```{r}
+data_clean %>%
+  filter(!is.na(PRE_VIT_RAW), !is.na(LBW)) %>%
+  count(PRE_VIT_RAW, LBW)
+```
+
+Pre-pregnancy: For people with no folic acid intake: 78.8% do not have LBW 21.2% have LBW
+
+For people with folic acid intake: 77.9% do not have LBW 22.1% have LBW
+
+### During Pregnancy Folic Acid Intake Bar Plots
+
+```{r}
+## bar plot of During Pregnancy Folic Acid Intake Bar Plots
+ggplot(data_clean %>% filter(!is.na(VPP_VIT_RAW), !is.na(LBW)), aes(x = VPP_VIT_RAW, fill = factor(LBW))) +
+  geom_bar(position = "fill") +  # "fill" makes the bars proportional (percentage)
+  scale_y_continuous(labels = scales::percent) +
+  scale_x_discrete(labels = c("0" = "No", "1" = "Yes")) +  # Change 0, 1 to No, Yes on x-axis
+  scale_fill_manual(values = c("0" = "blue", "1" = "red"), labels = c("0" = "No", "1" = "Yes")) +  # Change 0, 1 to No, Yes in the legend
+  labs(x = "During Pregnancy Folic Acid Intake", y = "Percentage of Individuals", fill = "LBW Status",
+       title = "During Pregnancy Folic Acid Intake and LBW Status") +
+  theme_minimal()
+```
+
+```{r}
+data_clean %>%
+  filter(!is.na(VPP_VIT_RAW), !is.na(LBW)) %>%
+  count(VPP_VIT_RAW, LBW)
+```
+
+During pregnancy: For people with no folic acid intake during pregnancy: 78.4% do not have LBW 21.6% have LBW For people with folic acid intake during pregnancy: 79.8% do not have LBW 20.2% have LBW
+
+##Covariates by Outcomes
+
+### Parity
+
+```{r}
+##bar plot of Parity and LBW Status
+ggplot(data_clean %>% filter(!is.na(PRE_LB_NAPHSIS), !is.na(LBW)), aes(x = PRE_LB_NAPHSIS, fill = factor(LBW))) +
+  geom_bar(position = "fill") +  # "fill" makes the bars proportional (percentage)
+  scale_y_continuous(labels = scales::percent) +
+  scale_x_discrete(labels = c("0" = "No children", "1" = "One child", "2" = "2+ children")) +  # Change 0, 1 to No, Yes on x-axis
+  scale_fill_manual(values = c("0" = "blue", "1" = "red"), labels = c("0" = "No", "1" = "Yes")) +  # Change 0, 1 to No, Yes in the legend
+  labs(x = "Parity", y = "Percentage of Individuals", fill = "LBW Status",
+       title = "Parity and LBW Status") +
+  theme_minimal()
+```
+
+```{r}
+data_clean %>%
+  filter(!is.na(PRE_LB_NAPHSIS), !is.na(LBW)) %>%
+  count(PRE_LB_NAPHSIS, LBW)
+```
+
+For PRE_LB_NAPHSIS = 0: 76.2% do not have LBW 23.8% have LBW
+
+For PRE_LB_NAPHSIS = 1: 81.5% do not have LBW 18.5% have LBW
+
+For PRE_LB_NAPHSIS = 2: 79.6% do not have LBW 20.4% have LBW
+
+First-time pregnancies (PRE_LB_NAPHSIS = 0) are associated with the highest LBW risk (23.8%). One prior pregnancy (PRE_LB_NAPHSIS = 1) seems to have the best outcomes with the lowest proportion of LBW (18.5%). Multiple prior pregnancies (PRE_LB_NAPHSIS = 2) show an intermediate risk. These patterns suggest that maternal history of prior pregnancies influences birth weight outcomes, potentially due to biological or healthcare-related factors that improve with experience or repeated exposure to pregnancy.
+
+### Maternal Age
+
+```{r}
+## box plot of Maternal Age by LBW Status
+data_clean %>% 
+  filter(!is.na(MAT_AGE_PU), !is.na(LBW)) %>%
+  ggplot(aes(x = factor(LBW, levels = c("0", "1"), labels = c("No", "Yes")), y = MAT_AGE_PU, color = factor(LBW, levels = c("0", "1"), labels = c("No", "Yes")))) +
+  geom_boxplot(width = 0.5) +
+  geom_jitter(width = 0.1, alpha = 0.3) +
+  ggtitle("Maternal Age by LBW Status") +
+  xlab("LBW Status") +
+  ylab("Maternal Age (Years)") +
+  scale_color_manual(name = "LBW Status", values = c("red", "blue")) +
+  theme_minimal()  # Use a built-in theme here
+```
+
+```{r}
+ci_data <- data_clean %>%
+  filter(!is.na(MAT_AGE_PU), !is.na(LBW)) %>%
+  group_by(LBW) %>%
+  summarize(
+    Median_Age = median(MAT_AGE_PU),
+    IQR_Lower = quantile(MAT_AGE_PU, 0.25),
+    IQR_Upper = quantile(MAT_AGE_PU, 0.75)
+  )
+
+print(ci_data)
+```
+
+For individuals without LBW (LBW group 0), the central value of maternal age is 29 years, with the middle 50% of the ages falling between 25 and 33 years. For individuals with LBW (LBW group 1), the median maternal age is also 29 years. However, the range of ages for the middle 50% of individuals is slightly broader, spanning from 25 to 34 years.
+
+### Maternal BMI
+
+```{r}
+## box plot of Maternal BMI by LBW Status
+data_clean %>% 
+  filter(!is.na(MOM_BMI), !is.na(LBW)) %>%
+  ggplot(aes(x = factor(LBW, levels = c("0", "1"), labels = c("No", "Yes")), y = MOM_BMI, color = factor(LBW, levels = c("0", "1"), labels = c("No", "Yes")))) +
+  geom_boxplot(width = 0.5) +
+  geom_jitter(width = 0.1, alpha = 0.3) +
+  ggtitle("Maternal BMI by LBW Status") +
+  xlab("LBW Status") +
+  ylab("Maternal BMI (kg/m2)") +
+  scale_color_manual(name = "LBW Status", values = c("red", "blue")) +
+  theme_minimal()  # Use a built-in theme here
+
+```
+
+```{r}
+ci_data <- data_clean %>%
+  filter(!is.na(MOM_BMI), !is.na(LBW)) %>%
+  group_by(LBW) %>%
+  summarize(
+    Median_Age = median(MOM_BMI),
+    IQR_Lower = quantile(MOM_BMI, 0.25),
+    IQR_Upper = quantile(MOM_BMI, 0.75)
+  )
+
+print(ci_data)
+```
+
+For mothers whose babies did not have low birth weight, the middle 50% of BMI range from 22.15 to 30.54 kg/m\^2;, with a median of 25.61 kg/m\^2. For mothers whose babies did have low birth weight, the middle 50% of BMI range from 21.79 to 30.91 kg/m\^2, with a median of 25.51 kg/m\^2.
+
+### Maternal Education
+
+```{r}
+## bar plot of Maternal Education and LBW Status
+ggplot(data_clean %>% 
+         filter(!is.na(MAT_ED), !is.na(LBW)) %>% 
+         mutate(MAT_ED = factor(MAT_ED, levels = c("<= 12th grade, no diploma", 
+                                                   "High school graduate / GED", 
+                                                   "Some college, no degree", 
+                                                   "Bachelor's, Master's, or higher"))),
+       aes(x = MAT_ED, fill = factor(LBW))) +
+  geom_bar(position = "fill") +  # "fill" makes the bars proportional (percentage)
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("0" = "blue", "1" = "red"), labels = c("0" = "No", "1" = "Yes")) +  # Custom colors for LBW
+  labs(
+    x = "Maternal Education", 
+    y = "Percentage of Individuals", 
+    fill = "LBW Status", 
+    title = "Maternal Education and LBW Status"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+data_clean %>%
+  filter(!is.na(MAT_ED), !is.na(LBW)) %>%
+  count(MAT_ED, LBW)
+```
+
+\<= 12th grade, no diploma: No LBW: 77.2% of individuals without a diploma had babies with normal birth weight. LBW: 22.8% of individuals without a diploma had babies with low birth weight.
+
+High school graduate / GED: No LBW: 76.4% of high school graduates had babies with normal birth weight. LBW: 23.6% of high school graduates had babies with low birth weight.
+
+Some college, no degree: No LBW: 78.1% of individuals with some college education had babies with normal birth weight. LBW: 21.9% of individuals with some college education had babies with low birth weight.
+
+Bachelor's, Master's, or higher: No LBW: 81.6% of individuals with higher education had babies with normal birth weight. LBW: 18.4% of individuals with higher education had babies with low birth weight.
+
+Higher maternal education is associated with a lower proportion of low birth weight outcomes.
+
+### Income
+
+```{r}
+ggplot(data_clean %>% 
+         filter(!is.na(INCOME8), !is.na(LBW)) %>% 
+         mutate(INCOME8 = factor(INCOME8, levels = c("Low income (0 - $40,000)", 
+                                                     "Middle ($40,001 - $85,000)", 
+                                                     "High income ($85,001 or more)"))),
+       aes(x = INCOME8, fill = factor(LBW))) +
+  geom_bar(position = "fill") +  # "fill" makes the bars proportional (percentage)
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("0" = "blue", "1" = "red"), labels = c("0" = "No", "1" = "Yes")) +  # Change 0, 1 to No, Yes in the legend
+  labs(x = "Income", y = "Percentage of Individuals", fill = "LBW Status",
+       title = "Income and LBW Status") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+data_clean %>%
+  filter(!is.na(INCOME8), !is.na(LBW)) %>%
+  count(INCOME8, LBW)
+```
+
+High Income (\$85,001 or more) 82.6% do not have LBW. 17.4% have LBW.
+
+Low Income (\$0 - \$40,000) 76.1% do not have LBW. 23.9% have LBW.
+
+Middle Income (\$40,001 - \$85,000) 80.8% do not have LBW. 19.2% have LBW.
+
+Income level is inversely associated with LBW risk: higher income correlates with lower LBW percentages. The low-income group shows the highest proportion of LBW (23.9%), emphasizing the role of socioeconomic disparities in adverse birth outcomes. \### Number of Prenatal Care
+
+```{r}
+## clean data, make numeric
+data_clean$PNC_VST <- as.numeric(data_clean$PNC_VST)
+## bar plot of Number of Prenatal Care
+data_clean %>% 
+  filter(!is.na(PNC_VST), !is.na(LBW)) %>%
+  ggplot(aes(x = factor(LBW, levels = c("0", "1"), labels = c("No", "Yes")), y = PNC_VST, color = factor(LBW, levels = c("0", "1"), labels = c("No", "Yes")))) +
+  geom_boxplot(width = 0.5) +
+  geom_jitter(width = 0.1, alpha = 0.3) +
+  ggtitle("Number of Prenatal Care by LBW Status") +
+  xlab("LBW Status") +
+  ylab("Number of Prenatal Care (Count)") +
+  scale_color_manual(name = "LBW Status", values = c("red", "blue")) +
+  theme_minimal()  # Use a built-in theme here
+```
+
+```{r}
+ci_data <- data_clean %>%
+  filter(!is.na(PNC_VST), !is.na(LBW)) %>%
+  group_by(LBW) %>%
+  summarize(
+    Median_Age = median(PNC_VST),
+    IQR_Lower = quantile(PNC_VST, 0.25),
+    IQR_Upper = quantile(PNC_VST, 0.75)
+  )
+
+print(ci_data)
+```
+
+For mothers whose babies did not have low birth weight, the middle 50% of BMI range from 11 to 14, with a median of 13. For mothers whose babies did have low birth weight, the middle 50% of BMI range from 8 to 13, with a median of 11.
+
+### Maternal Race
+
+```{r}
+## bar plot of Maternal Race
+ggplot(data_clean %>% filter(!is.na(MAT_RACE_PU), !is.na(LBW)), aes(x = MAT_RACE_PU, fill = factor(LBW))) +
+  geom_bar(position = "fill") +  # "fill" makes the bars proportional (percentage)
+  scale_y_continuous(labels = scales::percent) +
+  scale_x_discrete(labels = c("White" = "White", "Black" = "Black", "American Indian" = "American Indian", "Alaska Native" = "Alaska Native", "Asian" = "Asian", "Hawaiian/Other Pacific Islander" = "Hawaiian/Other Pacific Islander", "Other/Multiple Race" = "Other/Multiple Race")) +  # Change 0, 1 to No, Yes on x-axis
+  scale_fill_manual(values = c("0" = "blue", "1" = "red"), labels = c("0" = "No", "1" = "Yes")) +  # Change 0, 1 to No, Yes in the legend
+  labs(x = "Maternal Race", y = "Percentage of Individuals", fill = "LBW Status",
+       title = "Maternal Race and LBW Status") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability
+```
+
+```{r}
+data_clean %>%
+  filter(!is.na(MAT_RACE_PU), !is.na(LBW)) %>%
+  count(MAT_RACE_PU, LBW)
+```
+
+American Indian 91.4% do not have LBW. 8.6% have LBW. Asian 80.8% do not have LBW. 19.2% have LBW. Black 73.9% do not have LBW. 26.1% have LBW. Hawaiian/Other Pacific Islander 85.5% do not have LBW. 14.5% have LBW. Other/Multiple Race 82.1% do not have LBW. 17.9% have LBW. White 78.9% do not have LBW. 21.1% have LBW.
+
+The data suggests that the Black racial group has the highest proportion of LBW cases (26.1%), followed by White (21.1%) and Asian (19.2%) individuals. The American Indian and Hawaiian/Other Pacific Islander groups show the lowest rates of LBW. This disparity highlights the potential need for addressing race-related factors contributing to LBW and suggests the importance of tailored interventions for different racial groups.
+
+## Dot plot of Occurrences of LBW for each state
+
+```{r}
+# Summarize the data: Count occurrences of LBW for each state
+heatmap_data <- data_clean %>%
+  group_by(STATE, LBW) %>%
+  summarise(count = n(), .groups = 'drop') %>%
+  pivot_wider(names_from = LBW, values_from = count, values_fill = list(count = 0))  # Reshape the data
+
+# Create the dot plot with enhanced color scale
+ggplot(heatmap_data, aes(x = STATE, y = factor(`1`), size = `1`, color = `1`)) +  # Use the '1' column for LBW=1
+  geom_point(shape = 16, alpha = 0.7) +  # Use dots (size indicates count)
+  scale_size_continuous(range = c(3, 10)) +  # Adjust size of dots
+  scale_color_viridis_c(option = "inferno", begin = 0.2, end = 1) +  # Use the 'inferno' color palette for better contrast
+  labs(title = "Dot Plot of Low Birth Weight by State",
+       x = "State", y = "Number of Low Birth Weight (Count)",
+       color = "Count", size = "Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(legend.position = "bottom")  # Position the legend at the bottom
+```
+
+Top 5 Places with Highest LBW Counts Kansas Utah New York City Puerto Rico Pennsylvania
+
+Top 5 Places with Highest LBW Counts Northern Mariana Indiana Arizona Minnesota North Dakota \## Logistic Regression {#sec-logistic-regression}
+
+```{r}
+# Set reference categories only for categorical variables
+data_clean <- data_clean %>%
+  mutate(
+    PRE_LB_NAPHSIS = relevel( PRE_LB_NAPHSIS, ref = "0"),
+    MAT_ED = relevel(MAT_ED, ref = "Bachelor's, Master's, or higher"),  # Set reference for       MAT_ED
+    INCOME8 = relevel(INCOME8, ref = "Low income (0 - $40,000)"),  # Set reference for INCOME8
+    MAT_RACE_PU = relevel(MAT_RACE_PU, ref = "White")  # Set reference for MAT_RACE_PU (if you want to control this)
+  )
+
+```
+
+### Pre-Preg {#sec-logistic-regression-table-pre-preg}
+
+```{r}
+# Unadjusted logistic regression for LBW with pre-pregnancy folic acid
+logit_prepreg_unadjusted <- glm(
+  LBW ~ PRE_VIT_RAW,
+  data = data_clean,
+  family = binomial()
+)
+
+# Adjusted logistic regression for LBW with pre-pregnancy folic acid
+logit_prepreg_adjusted <- glm(
+  LBW ~ PRE_VIT_RAW + MAT_AGE_PU + MOM_BMI + PRE_LB_NAPHSIS + MAT_ED + STATE + INCOME8 + PNC_VST + MAT_RACE_PU,
+  data = data_clean,
+  family = binomial()
+)
+
+# Display unadjusted and adjusted results for pre-pregnancy folic acid
+prepreg_unadjusted_results <- summary(logit_prepreg_unadjusted, exponentiate = TRUE, conf.int = TRUE)
+prepreg_adjusted_results <- summary(logit_prepreg_adjusted, exponentiate = TRUE, conf.int = TRUE)
+
+print(prepreg_unadjusted_results)
+print(prepreg_adjusted_results)
+
+# Extracting Odds Ratios (ORs) and Confidence Intervals (CIs) for the unadjusted model
+prepreg_unadjusted_or <- exp(prepreg_unadjusted_results$coefficients[, "Estimate"])
+prepreg_unadjusted_se <- prepreg_unadjusted_results$coefficients[, "Std. Error"]
+prepreg_unadjusted_ci <- exp(confint.default(logit_prepreg_unadjusted))
+
+# Extracting Odds Ratios (ORs) and Confidence Intervals (CIs) for the adjusted model
+prepreg_adjusted_or <- exp(prepreg_adjusted_results$coefficients[, "Estimate"])
+prepreg_adjusted_se <- prepreg_adjusted_results$coefficients[, "Std. Error"]
+prepreg_adjusted_ci <- exp(confint.default(logit_prepreg_adjusted))
+
+# Combine ORs and CIs into data frames
+prepreg_unadjusted_df <- data.frame(
+  OR = prepreg_unadjusted_or,
+  CI_lower = prepreg_unadjusted_ci[, 1],
+  CI_upper = prepreg_unadjusted_ci[, 2]
+)
+
+prepreg_adjusted_df <- data.frame(
+  OR = prepreg_adjusted_or,
+  CI_lower = prepreg_adjusted_ci[, 1],
+  CI_upper = prepreg_adjusted_ci[, 2]
+)
+
+# Print results
+print(prepreg_unadjusted_df)
+print(prepreg_adjusted_df)
+```
+
+Pre-pregnancy folic acid intake is associated with higher odds of LBW (OR = 1.056, p-value = 7.29e-06, 95% CI: \[1.031, 1.081\]).
+
+Adjusting for confounders, pre-pregnancy folic acid intake is associated with higher odds of LBW (OR = 1.144, p-value = \< 2e-16, 95% CI: \[1.110, 1.180\]).
+
+### During Preg {#sec-logistic-regression-table-during-preg}
+
+```{r}
+# Unadjusted logistic regression for LBW with during-pregnancy folic acid
+logit_duringpreg_unadjusted <- glm(
+  LBW ~ VPP_VIT_RAW,
+  data = data_clean,
+  family = binomial()
+)
+
+# Adjusted logistic regression for LBW with during-pregnancy folic acid
+logit_duringpreg_adjusted <- glm(
+  LBW ~ VPP_VIT_RAW + MAT_AGE_PU + MOM_BMI + PRE_LB_NAPHSIS + MAT_ED + STATE + INCOME8 + PNC_VST + MAT_RACE_PU,
+  data = data_clean,
+  family = binomial()
+)
+
+# Display unadjusted and adjusted results for during-pregnancy folic acid
+duringpreg_unadjusted_results <- summary(logit_duringpreg_unadjusted, exponentiate = TRUE, conf.int = TRUE)
+duringpreg_adjusted_results <- summary(logit_duringpreg_adjusted, exponentiate = TRUE, conf.int = TRUE)
+
+print(duringpreg_unadjusted_results)
+print(duringpreg_adjusted_results)
+
+# Extracting Odds Ratios (ORs) and Confidence Intervals (CIs) for the unadjusted model
+duringpreg_unadjusted_or <- exp(duringpreg_unadjusted_results$coefficients[, "Estimate"])
+duringpreg_unadjusted_se <- duringpreg_unadjusted_results$coefficients[, "Std. Error"]
+duringpreg_unadjusted_ci <- exp(confint.default(logit_duringpreg_unadjusted))
+
+# Extracting Odds Ratios (ORs) and Confidence Intervals (CIs) for the adjusted model
+duringpreg_adjusted_or <- exp(duringpreg_adjusted_results$coefficients[, "Estimate"])
+duringpreg_adjusted_se <- duringpreg_adjusted_results$coefficients[, "Std. Error"]
+duringpreg_adjusted_ci <- exp(confint.default(logit_duringpreg_adjusted))
+
+# Combine ORs and CIs into data frames
+duringpreg_unadjusted_df <- data.frame(
+  OR = duringpreg_unadjusted_or,
+  CI_lower = duringpreg_unadjusted_ci[, 1],
+  CI_upper = duringpreg_unadjusted_ci[, 2]
+)
+
+duringpreg_adjusted_df <- data.frame(
+  OR = duringpreg_adjusted_or,
+  CI_lower = duringpreg_adjusted_ci[, 1],
+  CI_upper = duringpreg_adjusted_ci[, 2]
+)
+
+# Print results
+print(duringpreg_unadjusted_df)
+print(duringpreg_adjusted_df)
+```
+
+Pregnancy folic acid intake is associated with higher odds of LBW (OR = 0.9214, p-value = 1.17e-14, 95% CI: \[0.9025, 0.9408\]).
+
+Adjusting for confounders, pregnancy folic acid intake is associated with 0.9214394 odds of LBW (OR = 0.96038, p-value = \< 2e-16, 95% CI: \[0.9359, 0.9855\]).
+
+## Forrest Plot Logistic Regression Results {#sec-forrest-plot-logistic-regression-results}
+
+```{r}
+
+# Combine unadjusted and adjusted results for PRE_VIT_RAW
+prepreg_df <- data.frame(
+  Exposure = c("Pre-Pregnancy Folic Usage (Unadj)", "Pre-Pregnancy Folic Usage (Adj)"),
+  OR = c(prepreg_unadjusted_or["PRE_VIT_RAW1"], prepreg_adjusted_or["PRE_VIT_RAW1"]),
+  CI_lower = c(prepreg_unadjusted_ci["PRE_VIT_RAW1", 1], prepreg_adjusted_ci["PRE_VIT_RAW1", 1]),
+  CI_upper = c(prepreg_unadjusted_ci["PRE_VIT_RAW1", 2], prepreg_adjusted_ci["PRE_VIT_RAW1", 2]),
+  Model = c("Unadjusted", "Adjusted")
+)
+
+# Combine unadjusted and adjusted results for VPP_VIT_RAW
+duringpreg_df <- data.frame(
+  Exposure = c("Pregnancy Folic Usage (Unadj)", "Pregnancy Folic Usage (Adj)"),
+  OR = c(duringpreg_unadjusted_or["VPP_VIT_RAW1"], duringpreg_adjusted_or["VPP_VIT_RAW1"]),
+  CI_lower = c(duringpreg_unadjusted_ci["VPP_VIT_RAW1", 1], duringpreg_adjusted_ci["VPP_VIT_RAW1", 1]),
+  CI_upper = c(duringpreg_unadjusted_ci["VPP_VIT_RAW1", 2], duringpreg_adjusted_ci["VPP_VIT_RAW1", 2]),
+  Model = c("Unadjusted", "Adjusted")
+)
+
+# Combine both data frames into one
+combined_df <- bind_rows(prepreg_df, duringpreg_df)
+
+# Plot the Odds Ratios with Confidence Intervals
+ggplot(combined_df, aes(x = Exposure, y = OR, color = Model, group = Exposure)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
+  scale_y_log10() +  # Log scale for better visualization
+  labs(
+    x = "Exposure Variables",
+    y = "Odds Ratio (OR)",
+    title = "Odds Ratios with 95% Confidence Intervals for PRE_VIT_RAW and VPP_VIT_RAW"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_color_manual(values = c("Unadjusted" = "blue", "Adjusted" = "red"))
+
+```
 
 ## Conclusion
 
-This the conclusion. The @sec-results can be invoked here.
+This study highlights several critical factors that influence LBW outcomes, with a particular focus on maternal folic acid intake, maternal education, socioeconomic status, and race. The analysis suggests that both pre-pregnancy and pregnancy folic acid intake are significantly associated with LBW, although the association with pregnancy folic acid intake appears to be protective (OR = 0.96), while pre-pregnancy intake is linked to a slight increase in the odds of LBW (OR = 1.14). These findings suggest that the timing of folic acid supplementation may play a role in birth weight outcomes, with pregnancy supplementation potentially offering more favorable outcomes.
+
+Socioeconomic factors, including income and maternal education, are also significant contributors to LBW risk. Higher maternal education and income are associated with lower rates of LBW, emphasizing the importance of addressing socioeconomic disparities in maternal health. The findings further indicate that racial disparities exist, with Black women having the highest proportion of LBW cases (26.1%), followed by White and Asian women, underscoring the need for targeted interventions within different racial groups.
+
+Maternal age, parity, and prenatal care visits were found to influence birth weight outcomes as well. First-time pregnancies were associated with the highest LBW risk, suggesting that a history of prior pregnancies may improve maternal health outcomes. Additionally, more frequent prenatal care visits were linked to better birth weight outcomes, underscoring the importance of adequate prenatal care in reducing LBW risk.
+
+This study also identifies geographical disparities in LBW, with certain states and regions, such as Kansas and Puerto Rico, showing higher LBW counts, potentially reflecting regional variations in healthcare access and maternal health services.
+
+In conclusion, improving maternal health outcomes and reducing LBW rates require a multifaceted approach that includes addressing nutritional, socioeconomic, healthcare access, and racial disparities. The role of folic acid intake, particularly during pregnancy, should be emphasized in maternal health guidelines, and public health interventions should focus on increasing access to prenatal care, promoting education, and addressing the underlying socioeconomic and racial factors that contribute to LBW.
+
+References
 
 1.  Organization WH. International statistical classification of diseases and related health problems, tenth revision, 2nd ed. World Health Organization; 2004.
 
