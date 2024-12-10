@@ -263,9 +263,13 @@ There is a significant difference in pre-pregnancy folic intake, pregnancy folic
 
 ```{r}
 # 2x2 tables
-table(data_clean$PRE_VIT_RAW, data_clean$LBW)
+addmargins(table(data_clean$PRE_VIT_RAW, data_clean$LBW,
+                 dnn = c("Pre-pregnancy Folic Intake",
+                         "LBW")))
 
-table(data_clean$VPP_VIT_RAW, data_clean$LBW)
+addmargins(table(data_clean$VPP_VIT_RAW, data_clean$LBW,
+                 dnn = c("Pre-pregnancy Folic Intake",
+                         "LBW")))
 
 ```
 
