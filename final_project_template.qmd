@@ -12,7 +12,7 @@ embed-resources: true
 
 ## Overview {#sec-overview}
 
-This study examines the link between maternal folic acid supplementation before and during pregnancy and the risk of delivering a low birth weight (LBW) infant, defined as a birth weight below 2,500 grams.^1^ LBW is associated with higher neonatal morbidity and long-term health issues. Folic acid, vital for fetal development, may help prevent LBW by supporting placental health. Using data from the Pregnancy Risk Assessment Monitoring System (PRAMS), the study finds that folic acid supplementation during pregnancy appears to reduce LBW risk, while pre-pregnancy intake may slightly increase it. Socioeconomic factors, such as education and income, as well as race and prenatal care, also play significant roles in LBW outcomes. The study highlights the need for targeted interventions addressing these factors to reduce LBW rates. I consulted with Dr. John Holmes and Dr. Ellen Caniglia from the Department of Biostatistics, Epidemiology & Informatics. Dr. Holmes highlighted potential study limitations, such as selection bias, while Dr. Caniglia shared a relevant [paper](https://pubmed.ncbi.nlm.nih.gov/35561720/) that examines the link between supplementation and adverse pregnancy outcomes like preterm birth (PTB) and LBW. You can access the final project, including all code and results, on my GitHub: <https://github.com/msaolabisi/BMIN503_Final_Project.git>
+This study examines the link between maternal folic acid supplementation before and during pregnancy and the risk of delivering a low birth weight (LBW) infant, defined as a birth weight below 2,500 grams.^1^ LBW is associated with higher neonatal morbidity and long-term health issues. Folic acid, vital for fetal development, may help prevent LBW by supporting placental health. Using data from the Pregnancy Risk Assessment Monitoring System (PRAMS), Phase 8, the study finds that folic acid supplementation during pregnancy appears to reduce LBW risk, while pre-pregnancy intake may slightly increase it. Socioeconomic factors, such as education and income, as well as race and prenatal care, also play significant roles in LBW outcomes. The study highlights the need for targeted interventions addressing these factors to reduce LBW rates. I consulted with Dr. John Holmes and Dr. Ellen Caniglia from the Department of Biostatistics, Epidemiology & Informatics. Dr. Holmes highlighted potential study limitations, such as selection bias, while Dr. Caniglia shared a relevant [paper](https://pubmed.ncbi.nlm.nih.gov/35561720/) that examines the link between supplementation and adverse pregnancy outcomes like preterm birth (PTB) and LBW. You can access the final project, including all code and results, on my GitHub: <https://github.com/msaolabisi/BMIN503_Final_Project.git>
 
 ## Introduction {#sec-introduction}
 
@@ -30,11 +30,11 @@ By drawing from these different fields of expertise, this project seeks to clari
 
 ## Methods {#sec-methods}
 
-This study is a secondary analysis of data collected from the Phase 8 (2016–2022) Pregnancy Risk Assessment Monitoring System (PRAMS), a cross-sectional study conducted by the Centers for Disease Control and Prevention (CDC) in collaboration with state health departments. The dataset included responses from 249,970 women across all U.S. states who gave birth within the study period.
+This study is a secondary analysis of data collected from the Phase 8 (2016–2022) Pregnancy Risk Assessment Monitoring System (PRAMS), a population-based surveillance system that collects data on maternal attitudes, behaviors, and experiences before, during, and after pregnancy conducted by the Centers for Disease Control and Prevention (CDC) in collaboration with state health departments. The dataset included responses from 249,970 women across all U.S. states who gave birth within the study period.
 
 The PRAMS survey included a core set of questions and optional standard questions tailored to state-specific needs. For this study, the primary exposure variables were folic acid supplementation before and during pregnancy, both categorized as "Yes" or "No." The primary outcome was infant birth weight, categorized as "Yes Low Birth Weight" or "No Low Birth Weight" Covariates included maternal age, race/ethnicity, education, smoking during pregnancy, pre-pregnancy BMI, prenatal care utilization, state, and income.
 
-Descriptive statistics were used to summarize maternal and infant characteristics, stratified by LBW status, and analyzed using t-tests for continuous variables and chi-square tests for categorical variables. Univariate and multivariate logistic regression models were employed to estimate unadjusted and adjusted odds ratios (aORs) for the relationship between folic acid intake (before and during pregnancy) and LBW, adjusting for covariates. Additional tables and figures included 2x2 tables to assess the relationship between exposures and outcome, bar plots displaying the relationship between exposures, covariates, and LBW, and a dot plot showing LBW counts across states. A forest plot was also generated to display both adjusted and unadjusted odds ratios (ORs) for the association between folic acid intake (before and during pregnancy) and LBW.
+Descriptive statistics were used to summarize maternal and infant characteristics, stratified by LBW status, and analyzed using t-tests for continuous variables and chi-square tests for categorical variables. Univariate and multivariate logistic regression models were employed to estimate unadjusted and adjusted odds ratios (ORs) for the relationship between folic acid intake (before and during pregnancy) and LBW. Additional tables and figures included 2x2 tables to assess the relationship between exposures and outcome, bar plots displaying the relationship between exposures, covariates, and LBW, and a dot plot showing LBW counts/rates across states. A forest plot was also generated to display both adjusted and unadjusted odds ratios (ORs) for the association between folic acid intake (before and during pregnancy) and LBW.
 
 ## Install, Read, & Load Packages {#sec-install-read-&-load-packages}
 
@@ -219,7 +219,7 @@ print(table1, showAllLevels = TRUE)
 #summary(table1, showAllLevels = TRUE)
 ```
 
-The sample consists mostly of low-income, white women, with about 36% reporting pre-pregnancy folic intake and about 56% reporting pregnancy folic intake. The population had an average count of prenatal care visits. The population were mostly overweight (going off of BMI which may not be accurate), were around the average age to have a baby, most were having their first baby, with about 1/5 having a low birth weight baby. Most participants have completed higher education. Massachusetts and Michigan are the most represented out of the states in the sample.
+The sample consists mostly of low-income, white women, with about 36% reporting pre-pregnancy folic intake and about 56% reporting pregnancy folic intake. The population had an average count of prenatal care visits. The population had a higher BMI, were around the average age to have a baby, most were nulliparous, with about 1/5 having a low birth weight baby. Most participants have completed higher education. Massachusetts and Michigan are the most represented out of the states in the population.
 
 ### Descriptive Table - vlbw, lbw, nbw, mac {#sec-descriptive-statistics-vlbw-lbw-nbw-mac}
 
@@ -288,6 +288,74 @@ chisq.test(table(data_clean$VPP_VIT_RAW, data_clean$LBW))
 Both pre-pregnancy folic intake and folic intake supplementation during pregnancy appear to be significantly associated with low birth weight. These findings suggest that maternal folic intake, either before or during pregnancy, could play an important role in birth weight outcomes.
 
 ## Bar Plots {#sec-bar-plots}
+
+### Percentage by LBW
+
+```{r}
+data_clean %>%
+  filter(!is.na(LBW)) %>%
+  group_by(LBW) %>%
+  summarise(count = n()) %>%
+  mutate(percentage = count / sum(count) * 100) %>%
+  ggplot(aes(x = as.factor(LBW), y = percentage, fill = as.factor(LBW))) + 
+  geom_bar(stat = "identity", color = "black") +  # Use stat = "identity" for percentages
+  scale_fill_manual(
+    values = c("0" = "blue", "1" = "red"),  # Assign colors to LBW categories
+    labels = c("0" = "No", "1" = "Yes")     # Adjust legend labels
+  ) +
+  scale_x_discrete(labels = c("0" = "No", "1" = "Yes")) +  # Adjust x-axis labels
+  labs(
+    title = "Percentage of Low Birth Weight (LBW) Cases",
+    x = "Low Birth Weight",
+    y = "Percentage",
+    fill = "LBW Status"  # Adjust legend title
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +  # Format y-axis as percentage
+  theme_minimal()  # For cleaner plot appearance
+```
+
+In looking at LBW in this population we saw that 78.8% did not have a LBW baby, while 21.2% did.
+
+###Percentage by Pre-pregnancy & During Pregnancy Folic Intake
+
+```{r}
+data_clean %>%
+  filter(!is.na(PRE_VIT_RAW), !is.na(VPP_VIT_RAW)) %>%
+  pivot_longer(
+    cols = c(PRE_VIT_RAW, VPP_VIT_RAW), 
+    names_to = "Folic_Acid_Stage", 
+    values_to = "Folic_Acid_Intake"
+  ) %>%
+  group_by(Folic_Acid_Stage, Folic_Acid_Intake) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  group_by(Folic_Acid_Stage) %>%  # Group by Folic_Acid_Stage for percentage calculation
+  mutate(percentage = count / sum(count) * 100) %>%  # Compute percentage within each stage
+  ggplot(aes(x = as.factor(Folic_Acid_Intake), y = percentage, fill = as.factor(Folic_Acid_Intake))) + 
+  geom_bar(stat = "identity", position = "dodge", color = "black") +  # Dodge position for side-by-side bars
+  scale_fill_manual(
+    values = c("0" = "blue", "1" = "red"),  # Assign colors for No and Yes
+    labels = c("0" = "No", "1" = "Yes")     # Adjust legend labels
+  ) +
+  scale_x_discrete(labels = c("0" = "No", "1" = "Yes")) +  # Adjust x-axis labels
+  facet_wrap(
+    ~ Folic_Acid_Stage, 
+    labeller = labeller(Folic_Acid_Stage = c("PRE_VIT_RAW" = "Pre-Pregnancy Intake", 
+                                             "VPP_VIT_RAW" = "Pregnancy Intake"))  # Custom facet labels
+  ) +
+  labs(
+    title = "Percentage of Folic Acid Intake Pre and During Pregnancy",
+    x = "Folic Acid Intake",
+    y = "Percentage",
+    fill = "Folic Acid Intake"  # Legend title
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +  # Format y-axis as percentage
+  theme_minimal()  # For cleaner plot appearance
+
+```
+
+In looking at pre-pregnancy folic acid intake, we saw that 36.2% of women did take folic acid, while 63.8% did not.
+
+During pregnancy folic acid intake increased with 55.6% of women taking folic acid while 44.4% did not.
 
 ### Count of People with Folic Acid Intake (Pre and During Pregnancy Bar Plots)
 
@@ -364,6 +432,44 @@ data_clean %>%
 
 During pregnancy: For people with no folic acid intake during pregnancy: 78.4% do not have LBW 21.6% have LBW For people with folic acid intake during pregnancy: 79.8% do not have LBW 20.2% have LBW
 
+### Combined Pregnancy Folic Acid Intake Bar Plots
+
+```{r}
+data_combined <- data_clean %>%
+  filter(!is.na(PRE_VIT_RAW), !is.na(VPP_VIT_RAW), !is.na(LBW)) %>%
+  pivot_longer(cols = c(PRE_VIT_RAW, VPP_VIT_RAW), 
+               names_to = "Folic_Acid_Stage", 
+               values_to = "Folic_Acid_Intake") %>%
+  mutate(Folic_Acid_Stage = recode(Folic_Acid_Stage, 
+                                   "PRE_VIT_RAW" = "Pre-Pregnancy", 
+                                   "VPP_VIT_RAW" = "During Pregnancy"),
+         Folic_Acid_Stage = factor(Folic_Acid_Stage, levels = c("Pre-Pregnancy", "During Pregnancy"))) %>%
+  group_by(Folic_Acid_Stage, Folic_Acid_Intake, LBW) %>%
+  summarise(count = n()) %>%
+  ungroup() %>%
+  group_by(Folic_Acid_Stage, Folic_Acid_Intake) %>%
+  mutate(total = sum(count),
+         percentage = count / total * 100) %>%
+  ungroup()
+
+# Plotting
+ggplot(data_combined, aes(x = factor(Folic_Acid_Intake), y = percentage, fill = factor(LBW))) +
+  geom_bar(stat = "identity", position = "dodge", width = 0.7) +  # Use stat = "identity" to plot percentages
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +  # Format y-axis as percentage
+  scale_x_discrete(labels = c("0" = "No", "1" = "Yes")) +  # Customize x-axis labels
+  scale_fill_manual(values = c("0" = "blue", "1" = "red"), labels = c("0" = "No", "1" = "Yes")) +  # Customize colors
+  labs(x = "Folic Acid Intake", y = "Percentage of Individuals", fill = "LBW Status", 
+       title = "Folic Acid Intake (Pre and During Pregnancy) and LBW Status") +
+  facet_wrap(~ Folic_Acid_Stage) +  # Facet by folic acid intake stage
+  theme_minimal()
+```
+
+Looking at pre-pregnancy folic acid intake and during pregnancy folic acid intake and LBW status, we saw that for those Pre-pregnancy who didnt take folic acid: 78.8% do not have LBW 21.2% have LBW. and for people with folic acid intake: 77.9% do not have LBW 22.1% have LBW.
+
+For those During pregnancy with no folic acid intake: 78.4% do not have LBW 21.6% have LBW and For people with folic acid intake during pregnancy: 79.8% do not have LBW 20.2% have LBW.
+
+Although the differences in LBW rates between those who took folic acid and those who did not are small for both, this might suggest that taking folic acid during pregnancy may offer a slightly greater protective effect against low birth weight than taking it before pregnancy.
+
 ##Covariates by Outcomes
 
 ### Parity
@@ -392,7 +498,7 @@ For PRE_LB_NAPHSIS = 1: 81.5% do not have LBW 18.5% have LBW
 
 For PRE_LB_NAPHSIS = 2: 79.6% do not have LBW 20.4% have LBW
 
-First-time pregnancies (PRE_LB_NAPHSIS = 0) are associated with the highest LBW risk (23.8%). One prior pregnancy (PRE_LB_NAPHSIS = 1) seems to have the best outcomes with the lowest proportion of LBW (18.5%). Multiple prior pregnancies (PRE_LB_NAPHSIS = 2) show an intermediate risk. These patterns suggest that maternal history of prior pregnancies influences birth weight outcomes, potentially due to biological or healthcare-related factors that improve with experience or repeated exposure to pregnancy.
+First-time pregnancies (PRE_LB_NAPHSIS = 0) have the highest LBW risk (23.8%). One prior pregnancy (PRE_LB_NAPHSIS = 1) seems to have the best outcomes with the lowest proportion of LBW (18.5%). These patterns suggest that maternal history of prior pregnancies influences birth weight outcomes, potentially due to biological or healthcare-related factors that improve with experience or repeated exposure to pregnancy.
 
 ### Maternal Age
 
@@ -423,7 +529,7 @@ ci_data <- data_clean %>%
 print(ci_data)
 ```
 
-For individuals without LBW (LBW group 0), the central value of maternal age is 29 years, with the middle 50% of the ages falling between 25 and 33 years. For individuals with LBW (LBW group 1), the median maternal age is also 29 years. However, the range of ages for the middle 50% of individuals is slightly broader, spanning from 25 to 34 years.
+For individuals without LBW (LBW group 0), the central value of maternal age is 29 years, with the middle 50% of the ages falling between 25 and 33 years. For individuals with LBW, the median maternal age is also 29 years. However, the range of ages for the middle 50% of individuals is slightly broader, spanning from 25 to 34 years.
 
 ### Maternal BMI
 
@@ -447,7 +553,7 @@ ci_data <- data_clean %>%
   filter(!is.na(MOM_BMI), !is.na(LBW)) %>%
   group_by(LBW) %>%
   summarize(
-    Median_Age = median(MOM_BMI),
+    Median_BMI = median(MOM_BMI),
     IQR_Lower = quantile(MOM_BMI, 0.25),
     IQR_Upper = quantile(MOM_BMI, 0.75)
   )
@@ -527,7 +633,9 @@ Low Income (\$0 - \$40,000) 76.1% do not have LBW. 23.9% have LBW.
 
 Middle Income (\$40,001 - \$85,000) 80.8% do not have LBW. 19.2% have LBW.
 
-Income level is inversely associated with LBW risk: higher income correlates with lower LBW percentages. The low-income group shows the highest proportion of LBW (23.9%), emphasizing the role of socioeconomic disparities in adverse birth outcomes. \### Number of Prenatal Care
+Income level is inversely associated with LBW risk: higher income correlates with lower LBW percentages. The low-income group shows the highest proportion of LBW (23.9%), emphasizing the role of socioeconomic disparities in adverse birth outcomes.
+
+### Number of Prenatal Care
 
 ```{r}
 ## clean data, make numeric
@@ -546,11 +654,14 @@ data_clean %>%
 ```
 
 ```{r}
+data_clean <- data_clean %>%
+  mutate(PNC_VST = as.numeric(as.character(PNC_VST)))
+
 ci_data <- data_clean %>%
   filter(!is.na(PNC_VST), !is.na(LBW)) %>%
   group_by(LBW) %>%
   summarize(
-    Median_Age = median(PNC_VST),
+    Median_PNC_VST = median(PNC_VST),
     IQR_Lower = quantile(PNC_VST, 0.25),
     IQR_Upper = quantile(PNC_VST, 0.75)
   )
@@ -558,7 +669,7 @@ ci_data <- data_clean %>%
 print(ci_data)
 ```
 
-For mothers whose babies did not have low birth weight, the middle 50% of BMI range from 11 to 14, with a median of 13. For mothers whose babies did have low birth weight, the middle 50% of BMI range from 8 to 13, with a median of 11.
+For mothers whose babies did not have low birth weight, the middle 50% of BMI range from 10 to 13, with a median of 12. For mothers whose babies did have low birth weight, the middle 50% of BMI range from 7 to 12, with a median of 10.
 
 ### Maternal Race
 
@@ -606,9 +717,37 @@ ggplot(heatmap_data, aes(x = STATE, y = factor(`1`), size = `1`, color = `1`)) +
   theme(legend.position = "bottom")  # Position the legend at the bottom
 ```
 
-Top 5 Places with Highest LBW Counts Kansas Utah New York City Puerto Rico Pennsylvania
+Top 5 Places with Highest LBW Counts: Kansas, Utah, New York City, Puerto Rico, Pennsylvania
 
-Top 5 Places with Highest LBW Counts Northern Mariana Indiana Arizona Minnesota North Dakota \## Logistic Regression {#sec-logistic-regression}
+Top 5 Places with Highest LBW Counts: Northern Mariana, Indiana, Arizona, Minnesota, North Dakota
+
+## Dot plot of Rates of LBW for each state
+
+```{r}
+# Summarize the data: Calculate the LBW rate for each state
+heatmap_data <- data_clean %>%
+  group_by(STATE, LBW) %>%
+  summarise(count = n(), .groups = 'drop') %>%
+  pivot_wider(names_from = LBW, values_from = count, values_fill = list(count = 0)) %>%  # Reshape the data
+  mutate(rate = `1` / (`0` + `1`))  # Calculate rate of LBW
+
+# Create the dot plot with enhanced color scale using rates
+ggplot(heatmap_data, aes(x = STATE, y = rate, size = rate, color = rate)) +  # Use 'rate' column
+  geom_point(shape = 16, alpha = 0.7) +  # Use dots (size indicates rate)
+  scale_size_continuous(range = c(3, 10)) +  # Adjust size of dots
+  scale_color_viridis_c(option = "inferno", begin = 0.2, end = 1) +  # Use 'inferno' color palette for rates
+  labs(title = "Dot Plot of Low Birth Weight Rate by State",
+       x = "State", y = "Low Birth Weight Rate",
+       color = "Rate", size = "Rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(legend.position = "bottom")  # Position the legend at the bottom
+
+```
+
+In looking at LBW by states, we saw the Top 5 states with the highest LBW rates—Mississippi (MS), Tennessee (TN), New York (NY), Puerto Rico (PR), and Kansas (KS)—highlight regions where disparities may be more pronounced.
+
+## Logistic Regression {#sec-logistic-regression}
 
 ```{r}
 # Set reference categories only for categorical variables
@@ -730,9 +869,9 @@ print(duringpreg_unadjusted_df)
 print(duringpreg_adjusted_df)
 ```
 
-Pregnancy folic acid intake is associated with higher odds of LBW (OR = 0.9214, p-value = 1.17e-14, 95% CI: \[0.9025, 0.9408\]).
+Pregnancy folic acid intake is associated with lower odds of LBW (OR = 0.9214, p-value = 1.17e-14, 95% CI: \[0.9025, 0.9408\]).
 
-Adjusting for confounders, pregnancy folic acid intake is associated with 0.9214394 odds of LBW (OR = 0.96038, p-value = \< 2e-16, 95% CI: \[0.9359, 0.9855\]).
+Adjusting for confounders, there was a slight increase in odds but pregnancy folic acid intake is still associated with lower odds of LBW (OR = 0.9603, p-value = \< 2e-16, 95% CI: \[0.9359, 0.9855\]).
 
 ## Forrest Plot Logistic Regression Results {#sec-forrest-plot-logistic-regression-results}
 
@@ -759,31 +898,120 @@ duringpreg_df <- data.frame(
 # Combine both data frames into one
 combined_df <- bind_rows(prepreg_df, duringpreg_df)
 
-# Plot the Odds Ratios with Confidence Intervals
+```
+
+## Forrest Plot PrePregnancy
+
+```{r}
+prepreg_df <- prepreg_df %>%
+  mutate(
+    Exposure = factor(
+      Exposure, 
+      levels = c("Pre-Pregnancy Folic Usage (Unadj)", "Pre-Pregnancy Folic Usage (Adj)")
+    ),
+    Model = factor(Model, levels = c("Unadjusted", "Adjusted"))  # Ensure the desired legend order
+  )
+
+# Plot for Pre-Pregnancy Folic Usage
+ggplot(prepreg_df, aes(x = Exposure, y = OR, color = Model, group = Exposure)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
+  scale_y_log10() +  # Log scale for better visualization
+  labs(
+    x = "Exposure Variables",
+    y = "Odds Ratio (95% CI)",
+    title = "Odds Ratios with 95% Confidence Intervals for Pre-Pregnancy Folic Usage",
+    color = "Model Type"  # Legend title
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_color_manual(values = c("Unadjusted" = "blue", "Adjusted" = "red"))  # Manual color mapping
+
+```
+
+## Forrest Plot Pregnancy
+
+```{r}
+duringpreg_df <- duringpreg_df %>%
+  mutate(
+    Exposure = factor(
+      Exposure, 
+      levels = c("Pregnancy Folic Usage (Unadj)", "Pregnancy Folic Usage (Adj)")
+    ),
+    Model = factor(Model, levels = c("Unadjusted", "Adjusted"))  # Ensure the desired legend order
+  )
+
+# Plot for During Pregnancy Folic Usage
+ggplot(duringpreg_df, aes(x = Exposure, y = OR, color = Model, group = Exposure)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
+  scale_y_log10() +  # Log scale for better visualization
+  labs(
+    x = "Exposure Variables",
+    y = "Odds Ratio (95% CI)",
+    title = "Odds Ratios with 95% Confidence Intervals for During Pregnancy Folic Usage",
+    color = "Model Type"  # Legend title
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_color_manual(values = c("Unadjusted" = "blue", "Adjusted" = "red"))  # Manual color mapping
+
+```
+
+## Forrest Plot Combined Results
+
+```{r}
+combined_df <- combined_df %>%
+  mutate(
+    Exposure = factor(
+      Exposure, 
+      levels = c(
+        "Pre-Pregnancy Folic Usage (Unadj)", 
+        "Pre-Pregnancy Folic Usage (Adj)", 
+        "Pregnancy Folic Usage (Unadj)", 
+        "Pregnancy Folic Usage (Adj)"
+      )
+    ),
+    Model = factor(Model, levels = c("Unadjusted", "Adjusted"))  # Ensure desired legend order
+  )
+
+# Plot the Odds Ratios with Confidence Intervals - combined intake
 ggplot(combined_df, aes(x = Exposure, y = OR, color = Model, group = Exposure)) +
   geom_point(size = 3) +
   geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
   scale_y_log10() +  # Log scale for better visualization
   labs(
     x = "Exposure Variables",
-    y = "Odds Ratio (OR)",
-    title = "Odds Ratios with 95% Confidence Intervals for PRE_VIT_RAW and VPP_VIT_RAW"
+    y = "Odds Ratio (95% CI)",
+    title = "Odds Ratios with 95% Confidence Intervals for Pre-Pregnancy and Pregnancy Folic Usage",
+    color = "Model Type"  # Legend title
   ) +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_color_manual(values = c("Unadjusted" = "blue", "Adjusted" = "red"))
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+  scale_color_manual(values = c("Unadjusted" = "blue", "Adjusted" = "red"))  # Manual color mapping
 
 ```
+
+Pre-pregnancy folic acid intake is associated with higher odds of LBW (OR = 1.056, p-value = 7.29e-06, 95% CI: \[1.031, 1.081\]).
+
+Adjusting for confounders, pre-pregnancy folic acid intake is associated with higher odds of LBW (OR = 1.144, p-value = \< 2e-16, 95% CI: \[1.110, 1.180\]).
+
+Pregnancy folic acid intake is associated with lower odds of LBW (OR = 0.9214, p-value = 1.17e-14, 95% CI: \[0.9025, 0.9408\]).
+
+Adjusting for confounders, there was a slight increase in odds but pregnancy folic acid intake is still associated with lower odds of LBW (OR = 0.96038, p-value = \< 2e-16, 95% CI: \[0.9359, 0.9855\]).
+
+## Limitations
+This analysis has several key limitations that should be considered when interpreting the findings. A major concern is the potential for confounding, particularly in the observed higher odds for pre-pregnancy folic acid intake and LBW. Women who take folic acid before pregnancy may have underlying health complications or a history of adverse pregnancy outcomes that motivated supplementation. These conditions, rather than the folic acid intake itself, could increase the likelihood of LBW, confounding the observed relationship. Additionally, social desirability bias may have influenced the results, as participants might have overreported their folic acid use due to its widely recognized health benefits. This bias could lead to an overestimation of the association between folic acid intake and LBW, as some participants may have claimed use without actually adhering to supplementation. Furthermore, the binary yes/no question about folic acid intake fails to capture critical information, such as the frequency, dosage, or timing of supplementation. This limitation reduces the ability to assess whether intake was sufficient to achieve effective outcomes, potentially obscuring more nuanced relationships. Together, these limitations underscore the importance of cautious interpretation and highlight the need for more detailed data collection and rigorous confounder adjustment in future research.
 
 ## Conclusion
 
 This study highlights several critical factors that influence LBW outcomes, with a particular focus on maternal folic acid intake, maternal education, socioeconomic status, and race. The analysis suggests that both pre-pregnancy and pregnancy folic acid intake are significantly associated with LBW, although the association with pregnancy folic acid intake appears to be protective (OR = 0.96), while pre-pregnancy intake is linked to a slight increase in the odds of LBW (OR = 1.14). These findings suggest that the timing of folic acid supplementation may play a role in birth weight outcomes, with pregnancy supplementation potentially offering more favorable outcomes.
 
-Socioeconomic factors, including income and maternal education, are also significant contributors to LBW risk. Higher maternal education and income are associated with lower rates of LBW, emphasizing the importance of addressing socioeconomic disparities in maternal health. The findings further indicate that racial disparities exist, with Black women having the highest proportion of LBW cases (26.1%), followed by White and Asian women, underscoring the need for targeted interventions within different racial groups.
+Socioeconomic factors, including income and maternal education, are also significant contributors to LBW risk. Higher maternal education and income were observed to have lower rates of LBW, emphasizing the importance of addressing socioeconomic disparities in maternal health. The findings further indicate that racial disparities exist, with Black women having the highest proportion of LBW cases (26.1%), followed by White and Asian women, underscoring the need for targeted interventions within different racial groups.
 
 Maternal age, parity, and prenatal care visits were found to influence birth weight outcomes as well. First-time pregnancies were associated with the highest LBW risk, suggesting that a history of prior pregnancies may improve maternal health outcomes. Additionally, more frequent prenatal care visits were linked to better birth weight outcomes, underscoring the importance of adequate prenatal care in reducing LBW risk.
 
-This study also identifies geographical disparities in LBW, with certain states and regions, such as Kansas and Puerto Rico, showing higher LBW counts, potentially reflecting regional variations in healthcare access and maternal health services.
+This study also identifies geographical disparities in LBW, with certain states and territories, such as Kansas and Puerto Rico, showing higher LBW counts, potentially reflecting regional variations in healthcare access and maternal health services.
 
 In conclusion, improving maternal health outcomes and reducing LBW rates require a multifaceted approach that includes addressing nutritional, socioeconomic, healthcare access, and racial disparities. The role of folic acid intake, particularly during pregnancy, should be emphasized in maternal health guidelines, and public health interventions should focus on increasing access to prenatal care, promoting education, and addressing the underlying socioeconomic and racial factors that contribute to LBW.
 
